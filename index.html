@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+<title>The Cake Lab — Kiểm tra kiến thức</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.x/dist/tabler-icons.min.css" />
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #FAFAF8; --bg2: #F3F1EC; --card: #FFFFFF;
+  --border: rgba(0,0,0,0.1); --border2: rgba(0,0,0,0.18);
+  --text: #1A1A1A; --text2: #6B6B6B; --text3: #9A9A9A;
+  --purple: #534AB7; --purple-bg: #EEEDFE; --purple-dark: #3C3489;
+  --green: #3B6D11; --green-bg: #EAF3DE; --green-border: #C0DD97;
+  --red: #A32D2D; --red-bg: #FCEBEB; --red-border: #F7C1C1;
+  --amber: #BA7517; --amber-bg: #FAEEDA;
+  --radius: 10px; --radius-sm: 7px;
+}
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+.app { max-width: 480px; margin: 0 auto; padding: 16px; }
+
+.screen { display: none; }
+.screen.active { display: block; }
+
+.logo-wrap { text-align: center; padding: 32px 0 20px; }
+.logo-name { font-size: 22px; font-weight: 600; color: var(--text); letter-spacing: 0.5px; }
+.logo-sub { font-size: 13px; color: var(--text2); margin-top: 3px; }
+
+.card { background: var(--card); border: 0.5px solid var(--border); border-radius: var(--radius); padding: 16px; margin-bottom: 12px; }
+.card-label { font-size: 11px; font-weight: 600; color: var(--text3); text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 12px; }
+
+input[type=text], select {
+  width: 100%; padding: 11px 13px; border: 0.5px solid var(--border2);
+  border-radius: var(--radius-sm); font-size: 15px; color: var(--text);
+  background: var(--bg); margin-bottom: 8px; outline: none;
+  -webkit-appearance: none;
+}
+input[type=text]:focus, select:focus { border-color: var(--purple); }
+
+.module-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.mod-btn { background: var(--bg); border: 0.5px solid var(--border2); border-radius: var(--radius-sm); padding: 12px 10px; text-align: left; cursor: pointer; transition: all 0.15s; }
+.mod-btn.on { border: 1.5px solid var(--purple); background: var(--purple-bg); }
+.mod-btn .mi { font-size: 20px; color: var(--purple); margin-bottom: 5px; }
+.mod-btn .mn { font-size: 13px; font-weight: 500; color: var(--text); line-height: 1.3; }
+.mod-btn .ms { font-size: 11px; color: var(--text3); margin-top: 2px; }
+
+.level-row { display: flex; gap: 8px; }
+.lv-btn { flex: 1; background: var(--bg); border: 0.5px solid var(--border2); border-radius: var(--radius-sm); padding: 10px 6px; text-align: center; cursor: pointer; font-size: 13px; color: var(--text); transition: all 0.15s; }
+.lv-btn.on { border: 1.5px solid var(--purple); background: var(--purple-bg); color: var(--purple-dark); font-weight: 600; }
+
+.start-btn { width: 100%; background: var(--purple); color: white; border: none; border-radius: var(--radius-sm); padding: 15px; font-size: 16px; font-weight: 600; cursor: pointer; margin-top: 4px; }
+.start-btn:hover { background: var(--purple-dark); }
+.start-btn:disabled { background: var(--bg2); color: var(--text3); cursor: default; }
+
+/* QUIZ */
+.prog-bar { height: 3px; background: var(--bg2); border-radius: 2px; margin-bottom: 18px; }
+.prog-fill { height: 100%; background: var(--purple); border-radius: 2px; transition: width 0.35s; }
+.q-meta { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
+.q-num { font-size: 12px; color: var(--text3); font-weight: 500; }
+.q-tag { font-size: 11px; background: var(--purple-bg); color: var(--purple); padding: 3px 9px; border-radius: 20px; font-weight: 600; }
+.scenario { background: var(--bg2); border-left: 2.5px solid var(--purple); border-radius: 0 var(--radius-sm) var(--radius-sm) 0; padding: 10px 13px; margin-bottom: 14px; font-size: 13px; color: var(--text2); line-height: 1.55; font-style: italic; }
+.q-text { font-size: 16px; color: var(--text); line-height: 1.5; margin-bottom: 20px; font-weight: 400; }
+.opts { display: flex; flex-direction: column; gap: 8px; margin-bottom: 14px; }
+.opt { background: var(--card); border: 0.5px solid var(--border2); border-radius: var(--radius-sm); padding: 13px 14px; text-align: left; cursor: pointer; font-size: 14px; color: var(--text); line-height: 1.4; display: flex; align-items: flex-start; gap: 10px; transition: all 0.12s; }
+.opt:hover:not(:disabled) { background: var(--bg2); }
+.opt .ol { font-weight: 700; color: var(--purple); min-width: 16px; }
+.opt.correct { border-color: var(--green); background: var(--green-bg); }
+.opt.correct .ol { color: var(--green); }
+.opt.wrong { border-color: var(--red); background: var(--red-bg); }
+.opt.wrong .ol { color: var(--red); }
+.opt:disabled { cursor: default; }
+.fb { border-radius: var(--radius-sm); padding: 12px 14px; font-size: 13px; line-height: 1.55; margin-bottom: 12px; display: none; }
+.fb.show { display: block; }
+.fb.correct { background: var(--green-bg); color: var(--green); border: 0.5px solid var(--green-border); }
+.fb.wrong { background: var(--red-bg); color: var(--red); border: 0.5px solid var(--red-border); }
+.next-btn { width: 100%; background: var(--card); border: 0.5px solid var(--purple); color: var(--purple); border-radius: var(--radius-sm); padding: 13px; font-size: 15px; font-weight: 600; cursor: pointer; display: none; }
+.next-btn.show { display: block; }
+.next-btn:hover { background: var(--purple-bg); }
+
+/* LOADING */
+.loading-wrap { text-align: center; padding: 80px 20px; }
+.dots { display: flex; justify-content: center; gap: 7px; margin-bottom: 14px; }
+.dot { width: 9px; height: 9px; background: var(--purple); border-radius: 50%; animation: blink 1.2s ease-in-out infinite; }
+.dot:nth-child(2){animation-delay:0.2s}.dot:nth-child(3){animation-delay:0.4s}
+@keyframes blink{0%,80%,100%{opacity:.2}40%{opacity:1}}
+.load-txt { font-size: 14px; color: var(--text2); }
+
+/* RESULT */
+.res-header { text-align: center; padding: 24px 0 18px; }
+.res-score { font-size: 52px; font-weight: 700; }
+.res-total { font-size: 15px; color: var(--text2); margin-top: 4px; }
+.res-label { font-size: 16px; font-weight: 600; margin-top: 10px; }
+.bd-row { display: flex; justify-content: space-between; align-items: center; padding: 11px 0; border-bottom: 0.5px solid var(--border); font-size: 14px; }
+.bd-row:last-child { border-bottom: none; }
+.bd-l { color: var(--text2); display: flex; align-items: center; gap: 7px; }
+.bd-s { font-weight: 600; }
+.bd-s.pass { color: var(--green); }
+.bd-s.fail { color: var(--red); }
+.res-note { background: var(--bg2); border-radius: var(--radius-sm); padding: 12px 14px; font-size: 13px; color: var(--text2); line-height: 1.55; margin-bottom: 12px; }
+.act-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 8px; }
+.act-btn { background: var(--card); border: 0.5px solid var(--border2); border-radius: var(--radius-sm); padding: 12px 8px; text-align: center; cursor: pointer; font-size: 13px; color: var(--text); }
+.act-btn:hover { background: var(--bg2); }
+.act-btn.primary { background: var(--purple); color: white; border-color: var(--purple); }
+.act-btn.primary:hover { background: var(--purple-dark); }
+.full-btn { width: 100%; background: var(--card); border: 0.5px solid var(--border2); border-radius: var(--radius-sm); padding: 12px; text-align: center; cursor: pointer; font-size: 13px; color: var(--text); }
+.full-btn:hover { background: var(--bg2); }
+.err-msg { background: var(--red-bg); color: var(--red); border-radius: var(--radius-sm); padding: 12px 14px; font-size: 13px; margin-bottom: 10px; display: none; }
+.err-msg.show { display: block; }
+</style>
+</head>
+<body>
+<div class="app">
+
+  <!-- HOME -->
+  <div id="s-home" class="screen active">
+    <div class="logo-wrap">
+      <div class="logo-name">The Cake Lab</div>
+      <div class="logo-sub">Kiểm tra kiến thức nhân viên</div>
+    </div>
+
+    <div class="card">
+      <div class="card-label">Thông tin nhân viên</div>
+      <input type="text" id="staff-name" placeholder="Họ và tên nhân viên" />
+      <select id="store-sel">
+        <option value="">— Chọn cửa hàng —</option>
+        <option value="Tuệ Tĩnh">Tuệ Tĩnh</option>
+        <option value="Times City">Times City</option>
+        <option value="Trung Hòa">Trung Hòa</option>
+        <option value="Phan Bội Châu">Phan Bội Châu</option>
+        <option value="Online">Kênh Online</option>
+      </select>
+    </div>
+
+    <div class="card">
+      <div class="card-label">Module kiểm tra</div>
+      <div class="module-grid">
+        <button class="mod-btn on" data-m="product" onclick="toggleMod(this)">
+          <div class="mi"><i class="ti ti-cake"></i></div>
+          <div class="mn">Kiến thức sản phẩm</div>
+          <div class="ms">Mô tả · Thành phần · Hương vị</div>
+        </button>
+        <button class="mod-btn" data-m="consult" onclick="toggleMod(this)">
+          <div class="mi"><i class="ti ti-message-2"></i></div>
+          <div class="mn">Tư vấn & upsell</div>
+          <div class="ms">Gợi ý · Combo · Ghép đôi</div>
+        </button>
+        <button class="mod-btn" data-m="service" onclick="toggleMod(this)">
+          <div class="mi"><i class="ti ti-star"></i></div>
+          <div class="mn">Quy trình dịch vụ</div>
+          <div class="ms">Tiêu chuẩn · Checklist ca</div>
+        </button>
+        <button class="mod-btn" data-m="situation" onclick="toggleMod(this)">
+          <div class="mi"><i class="ti ti-alert-triangle"></i></div>
+          <div class="mn">Xử lý tình huống</div>
+          <div class="ms">Khiếu nại · Khách khó</div>
+        </button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-label">Cấp độ</div>
+      <div class="level-row">
+        <button class="lv-btn on" data-lv="new" onclick="selectLv(this)">Nhân viên mới</button>
+        <button class="lv-btn" data-lv="mid" onclick="selectLv(this)">Có kinh nghiệm</button>
+        <button class="lv-btn" data-lv="all" onclick="selectLv(this)">Toàn diện</button>
+      </div>
+    </div>
+
+    <div class="err-msg" id="err-home">Vui lòng nhập đủ họ tên và chọn cửa hàng.</div>
+    <button class="start-btn" onclick="startQuiz()">
+      <i class="ti ti-player-play"></i> Bắt đầu kiểm tra
+    </button>
+  </div>
+
+  <!-- LOADING -->
+  <div id="s-load" class="screen">
+    <div class="loading-wrap">
+      <div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+      <div class="load-txt" id="load-msg">Đang tải câu hỏi...</div>
+    </div>
+  </div>
+
+  <!-- QUIZ -->
+  <div id="s-quiz" class="screen">
+    <div style="padding-top:14px;">
+      <div class="prog-bar"><div class="prog-fill" id="prog" style="width:0%"></div></div>
+      <div class="q-meta">
+        <span class="q-num" id="q-num">Câu 1 / 8</span>
+        <span class="q-tag" id="q-tag">Sản phẩm</span>
+      </div>
+      <div class="scenario" id="scenario" style="display:none;"></div>
+      <div class="q-text" id="q-text"></div>
+      <div class="opts" id="opts"></div>
+      <div class="fb" id="fb"></div>
+      <button class="next-btn" id="next-btn" onclick="nextQ()">Câu tiếp theo →</button>
+    </div>
+  </div>
+
+  <!-- RESULT -->
+  <div id="s-result" class="screen">
+    <div style="padding-top:14px;">
+      <div class="res-header">
+        <div class="res-score" id="rs"></div>
+        <div class="res-total" id="rt"></div>
+        <div class="res-label" id="rl"></div>
+      </div>
+      <div class="card">
+        <div class="card-label">Kết quả theo module</div>
+        <div id="breakdown"></div>
+      </div>
+      <div class="res-note" id="rn"></div>
+      <div class="act-grid">
+        <button class="act-btn" onclick="goHome()"><i class="ti ti-home"></i> Trang chủ</button>
+        <button class="act-btn primary" onclick="copyResult()"><i class="ti ti-copy"></i> Sao chép</button>
+      </div>
+      <button class="full-btn" onclick="retryQuiz()"><i class="ti ti-refresh"></i> Làm lại bộ câu hỏi mới</button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+// ─── CẤU HÌNH ───────────────────────────────────────────────
+// Sau khi deploy Apps Script, dán Web App URL vào đây:
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxMvWEIXeeYGJHzJe3NCf8W1LKY-W-ydba-EzvN02qrmCZDH8uxCw8VfODPBTvmFOuyXw/exec";
+// ────────────────────────────────────────────────────────────
+
+const MOD_INFO = {
+  product:   { name: "Kiến thức sản phẩm", icon: "ti-cake" },
+  consult:   { name: "Tư vấn & upsell",    icon: "ti-message-2" },
+  service:   { name: "Quy trình dịch vụ",  icon: "ti-star" },
+  situation: { name: "Xử lý tình huống",   icon: "ti-alert-triangle" }
+};
+
+let selMods = ["product"], selLv = "new";
+let questions = [], curQ = 0, scores = {}, modCounts = {};
+let staffName = "", storeName = "";
+
+function toggleMod(btn) {
+  const m = btn.dataset.m;
+  if (btn.classList.contains("on")) {
+    if (selMods.length === 1) return;
+    selMods = selMods.filter(x => x !== m);
+    btn.classList.remove("on");
+  } else {
+    selMods.push(m);
+    btn.classList.add("on");
+  }
+}
+function selectLv(btn) {
+  document.querySelectorAll(".lv-btn").forEach(b => b.classList.remove("on"));
+  btn.classList.add("on");
+  selLv = btn.dataset.lv;
+}
+function show(id) {
+  document.querySelectorAll(".screen").forEach(s => s.classList.remove("active"));
+  document.getElementById(id).classList.add("active");
+}
+function goHome() { show("s-home"); }
+
+async function startQuiz() {
+  staffName = document.getElementById("staff-name").value.trim();
+  const stEl = document.getElementById("store-sel");
+  storeName = stEl.options[stEl.selectedIndex]?.text || "";
+  const err = document.getElementById("err-home");
+  if (!staffName || !stEl.value) { err.classList.add("show"); return; }
+  err.classList.remove("show");
+  show("s-load");
+  document.getElementById("load-msg").textContent = "Đang tải câu hỏi...";
+  await loadQuestions();
+}
+
+async function loadQuestions() {
+  try {
+    const url = `${SCRIPT_URL}?action=getQuestions&module=${selMods.join(",")}&level=${selLv}`;
+    const resp = await fetch(url);
+    const data = await resp.json();
+    if (!data.questions || data.questions.length === 0) throw new Error("Không có câu hỏi phù hợp");
+    questions = data.questions;
+    scores = {}; modCounts = {};
+    selMods.forEach(m => { scores[m] = 0; modCounts[m] = 0; });
+    questions.forEach(q => { if (modCounts[q.module] !== undefined) modCounts[q.module]++; });
+    curQ = 0;
+    renderQ();
+    show("s-quiz");
+  } catch (e) {
+    document.getElementById("load-msg").textContent = "Lỗi: " + e.message + ". Kiểm tra lại URL cấu hình.";
+  }
+}
+
+function renderQ() {
+  const q = questions[curQ], total = questions.length;
+  document.getElementById("prog").style.width = (curQ / total * 100) + "%";
+  document.getElementById("q-num").textContent = `Câu ${curQ + 1} / ${total}`;
+  document.getElementById("q-tag").textContent = MOD_INFO[q.module]?.name || q.module;
+  document.getElementById("q-text").textContent = q.question;
+  const sc = document.getElementById("scenario");
+  if (q.scenario) { sc.textContent = "📍 " + q.scenario; sc.style.display = "block"; }
+  else sc.style.display = "none";
+
+  const ol = document.getElementById("opts");
+  ol.innerHTML = "";
+  ["A","B","C","D"].forEach((letter, i) => {
+    if (!q.options[i]) return;
+    const btn = document.createElement("button");
+    btn.className = "opt";
+    btn.innerHTML = `<span class="ol">${letter}</span><span>${q.options[i]}</span>`;
+    btn.onclick = () => answer(i, btn);
+    ol.appendChild(btn);
+  });
+
+  const fb = document.getElementById("fb");
+  fb.className = "fb"; fb.textContent = "";
+  document.getElementById("next-btn").className = "next-btn";
+}
+
+function answer(idx, btn) {
+  const q = questions[curQ];
+  document.querySelectorAll(".opt").forEach(b => b.disabled = true);
+  const fb = document.getElementById("fb");
+  const allOpts = document.querySelectorAll(".opt");
+  if (idx === q.correct) {
+    btn.classList.add("correct");
+    fb.className = "fb correct show";
+    fb.innerHTML = "✓ Đúng rồi! " + (q.explanation || "");
+    if (scores[q.module] !== undefined) scores[q.module]++;
+  } else {
+    btn.classList.add("wrong");
+    allOpts[q.correct]?.classList.add("correct");
+    fb.className = "fb wrong show";
+    fb.innerHTML = "✗ Chưa đúng. " + (q.explanation || "");
+  }
+  document.getElementById("next-btn").className = "next-btn show";
+}
+
+function nextQ() {
+  curQ++;
+  if (curQ >= questions.length) showResult();
+  else renderQ();
+}
+
+async function showResult() {
+  document.getElementById("prog").style.width = "100%";
+  const correct = Object.values(scores).reduce((a,b)=>a+b,0);
+  const total = questions.length;
+  const pct = Math.round(correct / total * 100);
+  let label, note, color;
+  if (pct >= 80) {
+    label = "🎉 Xuất sắc — Đạt yêu cầu"; color = "#3B6D11";
+    note = "Nhân viên nắm vững kiến thức. QLCH xác nhận và lưu hồ sơ.";
+  } else if (pct >= 60) {
+    label = "📚 Cần ôn tập thêm"; color = "#BA7517";
+    note = "Cần xem lại phần còn yếu, kiểm tra lại sau 3–5 ngày.";
+  } else {
+    label = "⚠️ Chưa đạt — Cần đào tạo lại"; color = "#A32D2D";
+    note = "Cần hoàn thành lại chương trình đào tạo. QLCH lên kế hoạch hỗ trợ.";
+  }
+  document.getElementById("rs").textContent = correct;
+  document.getElementById("rs").style.color = color;
+  document.getElementById("rt").textContent = `/ ${total} câu đúng`;
+  document.getElementById("rl").textContent = label;
+  document.getElementById("rn").textContent = note;
+
+  const bd = document.getElementById("breakdown");
+  bd.innerHTML = "";
+  selMods.forEach(m => {
+    const mc = modCounts[m]||0, sc = scores[m]||0;
+    const mp = mc > 0 ? Math.round(sc/mc*100) : 0;
+    const pass = mp >= 60;
+    bd.innerHTML += `<div class="bd-row">
+      <span class="bd-l"><i class="ti ${MOD_INFO[m].icon}"></i> ${MOD_INFO[m].name}</span>
+      <span class="bd-s ${pass?"pass":"fail"}">${sc}/${mc} (${mp}%)</span>
+    </div>`;
+  });
+  show("s-result");
+
+  // Lưu kết quả lên Google Sheets
+  const breakdown = {};
+  selMods.forEach(m => {
+    const mc = modCounts[m]||0, sc = scores[m]||0;
+    breakdown[m] = mc > 0 ? `${sc}/${mc}` : "";
+  });
+  try {
+    await fetch(SCRIPT_URL, {
+      method: "POST",
+      body: JSON.stringify({
+        staffName, storeName,
+        modules: selMods.map(m => MOD_INFO[m].name).join(", "),
+        level: selLv, total, correct, breakdown
+      })
+    });
+  } catch(e) { console.warn("Không lưu được kết quả:", e); }
+}
+
+function copyResult() {
+  const correct = Object.values(scores).reduce((a,b)=>a+b,0);
+  const total = questions.length;
+  const pct = Math.round(correct/total*100);
+  const date = new Date().toLocaleDateString("vi-VN");
+  let txt = `📋 KẾT QUẢ KIỂM TRA — THE CAKE LAB\n👤 ${staffName} | ${storeName}\n📅 ${date}\n🎯 ${correct}/${total} câu (${pct}%)\n\nChi tiết:\n`;
+  selMods.forEach(m => {
+    const mc = modCounts[m]||0, sc = scores[m]||0;
+    txt += `• ${MOD_INFO[m].name}: ${sc}/${mc} (${mc>0?Math.round(sc/mc*100):0}%)\n`;
+  });
+  navigator.clipboard?.writeText(txt);
+  const btn = event.currentTarget;
+  const orig = btn.innerHTML;
+  btn.innerHTML = '<i class="ti ti-check"></i> Đã sao chép';
+  setTimeout(() => btn.innerHTML = orig, 2000);
+}
+
+function retryQuiz() {
+  show("s-load");
+  loadQuestions();
+}
+</script>
+</body>
+</html>
