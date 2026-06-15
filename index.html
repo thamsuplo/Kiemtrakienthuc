@@ -2,280 +2,263 @@
 <html lang="vi">
 <head>
 <meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"/>
 <title>The Cake Lab — Đào tạo & Kiểm tra</title>
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 :root{
-  --orange:#E8401C;
-  --navy:#1B2F6E;
-  --navy-light:#2A4499;
-  --orange-light:#F5623E;
-  --bg:#F7F6F3;
-  --white:#FFFFFF;
-  --gray:#F0EEE9;
-  --gray2:#E2DED6;
-  --text:#1A1A2E;
-  --text2:#5A5A72;
-  --text3:#9A9AAA;
-  --radius:12px;
-  --radius-sm:8px;
+  --orange:#E8401C; --orange-light:#F5623E;
+  --navy:#1B2F6E; --navy-light:#2A4499;
+  --bg:#F7F6F3; --white:#FFFFFF;
+  --gray:#F0EEE9; --gray2:#E2DED6;
+  --text:#1A1A2E; --text2:#5A5A72; --text3:#9A9AAA;
+  --green:#2E7D32; --green-bg:#E8F5E9; --green-border:#A5D6A7;
+  --red:#C62828; --red-bg:#FFEBEE; --red-border:#EF9A9A;
+  --radius:12px; --radius-sm:8px;
   --shadow:0 2px 12px rgba(27,47,110,0.10);
   --shadow-lg:0 8px 32px rgba(27,47,110,0.16);
 }
-body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Helvetica Neue',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
 
 /* HEADER */
-.header{background:var(--navy);padding:16px 20px;display:flex;align-items:center;gap:12px;position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(0,0,0,0.2)}
-.header-logo{display:flex;align-items:center;gap:10px}
-.logo-icon{width:36px;height:36px;background:var(--orange);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px}
-.logo-text{color:white}
-.logo-name{font-size:16px;font-weight:700;letter-spacing:0.5px}
+.header{background:var(--navy);padding:14px 16px;display:flex;align-items:center;gap:10px;position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(0,0,0,0.2)}
+.logo-icon{width:34px;height:34px;background:var(--orange);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.logo-name{font-size:15px;font-weight:700;color:white;letter-spacing:0.3px}
 .logo-sub{font-size:11px;color:rgba(255,255,255,0.6);margin-top:1px}
-.header-back{margin-left:auto;background:rgba(255,255,255,0.12);border:none;color:white;padding:7px 14px;border-radius:20px;font-size:13px;cursor:pointer;display:none;align-items:center;gap:6px}
-.header-back.show{display:flex}
-.header-back:hover{background:rgba(255,255,255,0.2)}
+.back-btn{margin-left:auto;background:rgba(255,255,255,0.15);border:none;color:white;padding:7px 14px;border-radius:20px;font-size:13px;cursor:pointer;display:none;white-space:nowrap}
+.back-btn.show{display:block}
 
 /* SCREENS */
-.screen{display:none;animation:fadeIn 0.25s ease}
+.screen{display:none}
 .screen.active{display:block}
-@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.pdf-screen{display:none;height:calc(100vh - 62px);flex-direction:column}
+.pdf-screen.active{display:flex}
 
 /* HOME */
-.home-hero{background:linear-gradient(135deg,var(--navy) 0%,var(--navy-light) 100%);padding:32px 20px 40px;text-align:center;color:white}
-.home-hero h1{font-size:clamp(22px,5vw,32px);font-weight:700;margin-bottom:8px;letter-spacing:-0.3px}
-.home-hero p{font-size:14px;color:rgba(255,255,255,0.7);max-width:400px;margin:0 auto}
-.home-hero .hero-badge{display:inline-block;background:var(--orange);color:white;font-size:11px;font-weight:600;padding:4px 12px;border-radius:20px;margin-bottom:16px;letter-spacing:0.5px;text-transform:uppercase}
+.hero{background:linear-gradient(135deg,var(--navy),var(--navy-light));padding:28px 16px 36px;text-align:center;color:white}
+.hero h1{font-size:clamp(18px,5vw,28px);font-weight:700;line-height:1.3;letter-spacing:-0.3px}
+.hero-badge{display:inline-block;background:var(--orange);color:white;font-size:11px;font-weight:700;padding:4px 12px;border-radius:20px;margin-bottom:14px;letter-spacing:0.5px;text-transform:uppercase}
 
-.home-content{max-width:680px;margin:0 auto;padding:24px 16px 40px}
+.home-body{max-width:680px;margin:0 auto;padding:20px 14px 40px}
+.sec-label{font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;padding-left:2px}
 
-.section-label{font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;padding-left:4px}
-
-/* TRAINING CARDS */
-.training-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:28px}
-@media(max-width:480px){.training-grid{grid-template-columns:1fr}}
-.training-card{background:var(--white);border-radius:var(--radius);padding:20px 16px;cursor:pointer;box-shadow:var(--shadow);border:1.5px solid transparent;transition:all 0.2s;position:relative;overflow:hidden}
-.training-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--orange)}
-.training-card:nth-child(2)::before{background:var(--navy)}
-.training-card:nth-child(3)::before{background:var(--orange)}
-.training-card:nth-child(4)::before{background:var(--navy)}
-.training-card:hover{border-color:var(--orange);box-shadow:var(--shadow-lg);transform:translateY(-2px)}
-.training-card:nth-child(2):hover,.training-card:nth-child(4):hover{border-color:var(--navy)}
-.tc-icon{width:40px;height:40px;border-radius:10px;background:rgba(232,64,28,0.1);display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:12px}
-.training-card:nth-child(2) .tc-icon,.training-card:nth-child(4) .tc-icon{background:rgba(27,47,110,0.1)}
-.tc-num{font-size:10px;font-weight:700;color:var(--orange);letter-spacing:0.5px;text-transform:uppercase;margin-bottom:4px}
-.training-card:nth-child(2) .tc-num,.training-card:nth-child(4) .tc-num{color:var(--navy)}
-.tc-name{font-size:14px;font-weight:600;color:var(--text);line-height:1.3;margin-bottom:6px}
-.tc-desc{font-size:12px;color:var(--text3);line-height:1.4}
-.tc-arrow{position:absolute;bottom:16px;right:16px;color:var(--gray2);font-size:16px}
+/* TRAINING GRID */
+.t-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:24px}
+@media(max-width:400px){.t-grid{grid-template-columns:1fr}}
+.t-card{background:var(--white);border-radius:var(--radius);padding:16px 14px;cursor:pointer;box-shadow:var(--shadow);border:1.5px solid transparent;transition:all 0.2s;position:relative;overflow:hidden;text-align:left}
+.t-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+.t-card:nth-child(1)::before,.t-card:nth-child(3)::before{background:var(--orange)}
+.t-card:nth-child(2)::before,.t-card:nth-child(4)::before{background:var(--navy)}
+.t-card:active{transform:scale(0.98)}
+.t-icon{font-size:22px;margin-bottom:8px}
+.t-num{font-size:10px;font-weight:700;color:var(--orange);letter-spacing:0.5px;text-transform:uppercase;margin-bottom:3px}
+.t-card:nth-child(2) .t-num,.t-card:nth-child(4) .t-num{color:var(--navy)}
+.t-name{font-size:13px;font-weight:600;color:var(--text);line-height:1.3;margin-bottom:4px}
+.t-desc{font-size:11px;color:var(--text3);line-height:1.4}
 
 /* TEST CARD */
-.test-card{background:linear-gradient(135deg,var(--orange) 0%,#C43015 100%);border-radius:var(--radius);padding:24px 20px;cursor:pointer;box-shadow:0 4px 20px rgba(232,64,28,0.3);display:flex;align-items:center;gap:16px;transition:all 0.2s}
-.test-card:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(232,64,28,0.4)}
-.test-card-icon{width:56px;height:56px;background:rgba(255,255,255,0.2);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:28px;flex-shrink:0}
-.test-card-text{color:white}
-.test-card-text h3{font-size:18px;font-weight:700;margin-bottom:4px}
-.test-card-text p{font-size:13px;color:rgba(255,255,255,0.8)}
-.test-card-arrow{margin-left:auto;color:rgba(255,255,255,0.6);font-size:22px;flex-shrink:0}
+.test-card{background:linear-gradient(135deg,var(--orange),#C43015);border-radius:var(--radius);padding:20px 16px;cursor:pointer;box-shadow:0 4px 20px rgba(232,64,28,0.3);display:flex;align-items:center;gap:14px}
+.test-card:active{transform:scale(0.98)}
+.test-icon{width:52px;height:52px;background:rgba(255,255,255,0.2);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:26px;flex-shrink:0}
+.test-info{color:white;flex:1}
+.test-info h3{font-size:17px;font-weight:700;margin-bottom:3px}
+.test-info p{font-size:12px;color:rgba(255,255,255,0.8)}
+.test-arrow{color:rgba(255,255,255,0.6);font-size:20px}
 
-/* PDF VIEWER SCREEN */
-.pdf-screen{height:calc(100vh - 60px);display:none;flex-direction:column}
-.pdf-screen.active{display:flex}
-.pdf-toolbar{background:var(--white);padding:10px 16px;border-bottom:1px solid var(--gray2);display:flex;align-items:center;gap:10px}
+/* PDF */
+.pdf-bar{background:var(--white);padding:10px 14px;border-bottom:1px solid var(--gray2);display:flex;align-items:center;gap:10px}
 .pdf-title{font-size:14px;font-weight:600;color:var(--text);flex:1}
 .pdf-badge{font-size:11px;background:var(--orange);color:white;padding:3px 8px;border-radius:10px;font-weight:600}
 .pdf-frame{flex:1;width:100%;border:none;background:var(--gray)}
 
 /* TEST SCREEN */
-.test-screen-inner{max-width:680px;margin:0 auto;padding:20px 16px 40px}
+.test-body{max-width:680px;margin:0 auto;padding:16px 14px 40px}
 
-/* STAFF INFO */
-.staff-form{background:var(--white);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);margin-bottom:16px}
-.staff-form h2{font-size:16px;font-weight:700;color:var(--navy);margin-bottom:16px;display:flex;align-items:center;gap:8px}
-.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-@media(max-width:480px){.form-row{grid-template-columns:1fr}}
-.form-group{display:flex;flex-direction:column;gap:6px}
+/* STAFF FORM */
+.staff-card{background:var(--white);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow);margin-bottom:14px}
+.staff-card h2{font-size:15px;font-weight:700;color:var(--navy);margin-bottom:14px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media(max-width:400px){.form-row{grid-template-columns:1fr}}
+.form-group{display:flex;flex-direction:column;gap:5px}
 .form-group label{font-size:12px;font-weight:600;color:var(--text2)}
-.form-group input,.form-group select{padding:10px 12px;border:1.5px solid var(--gray2);border-radius:var(--radius-sm);font-size:14px;color:var(--text);background:var(--bg);outline:none;transition:border-color 0.15s;-webkit-appearance:none}
+.form-group input,.form-group select{padding:11px 12px;border:1.5px solid var(--gray2);border-radius:var(--radius-sm);font-size:15px;color:var(--text);background:var(--bg);outline:none;-webkit-appearance:none;appearance:none}
 .form-group input:focus,.form-group select:focus{border-color:var(--orange)}
-.err-msg{background:#FEECEB;color:var(--orange);border-radius:var(--radius-sm);padding:10px 14px;font-size:13px;margin-bottom:12px;display:none}
-.err-msg.show{display:block}
-
-/* PROGRESS */
-.test-progress{background:var(--white);border-radius:var(--radius);padding:16px 20px;box-shadow:var(--shadow);margin-bottom:16px}
-.progress-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
-.progress-label{font-size:13px;font-weight:600;color:var(--text)}
-.progress-count{font-size:13px;color:var(--text3)}
-.progress-track{height:6px;background:var(--gray2);border-radius:3px;overflow:hidden}
-.progress-fill{height:100%;background:linear-gradient(90deg,var(--orange),var(--orange-light));border-radius:3px;transition:width 0.4s ease}
-.section-indicators{display:flex;gap:6px;margin-top:10px}
-.si{flex:1;height:3px;border-radius:2px;background:var(--gray2);transition:background 0.3s}
-.si.done{background:var(--orange)}
-.si.active{background:var(--navy)}
-
-/* QUESTION CARD */
-.question-card{background:var(--white);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);margin-bottom:12px}
-.q-section-tag{display:inline-block;font-size:11px;font-weight:700;padding:3px 10px;border-radius:10px;margin-bottom:12px;letter-spacing:0.3px}
-.q-section-tag.s1{background:rgba(232,64,28,0.1);color:var(--orange)}
-.q-section-tag.s2{background:rgba(27,47,110,0.1);color:var(--navy)}
-.q-section-tag.s3{background:rgba(232,64,28,0.08);color:var(--orange-light)}
-.q-number{font-size:12px;color:var(--text3);margin-bottom:6px;font-weight:500}
-.q-text{font-size:15px;color:var(--text);line-height:1.55;font-weight:500}
-
-/* OPTIONS */
-.options{display:flex;flex-direction:column;gap:8px;margin-top:16px}
-.opt{background:var(--bg);border:1.5px solid var(--gray2);border-radius:var(--radius-sm);padding:12px 14px;cursor:pointer;display:flex;align-items:flex-start;gap:10px;transition:all 0.15s;text-align:left}
-.opt:hover:not(:disabled){background:rgba(232,64,28,0.04);border-color:rgba(232,64,28,0.3)}
-.opt-letter{width:24px;height:24px;border-radius:6px;background:var(--gray2);color:var(--text2);font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all 0.15s}
-.opt-text{font-size:14px;color:var(--text);line-height:1.5;padding-top:2px}
-.opt.correct{border-color:#2E7D32;background:#E8F5E9}
-.opt.correct .opt-letter{background:#2E7D32;color:white}
-.opt.correct .opt-text{color:#1B5E20}
-.opt.wrong{border-color:#C62828;background:#FFEBEE}
-.opt.wrong .opt-letter{background:#C62828;color:white}
-.opt.wrong .opt-text{color:#B71C1C}
-.opt:disabled{cursor:default}
-
-/* FEEDBACK */
-.feedback{border-radius:var(--radius-sm);padding:12px 14px;font-size:13px;line-height:1.55;margin-top:10px;display:none}
-.feedback.show{display:block}
-.feedback.correct{background:#E8F5E9;color:#1B5E20;border-left:3px solid #2E7D32}
-.feedback.wrong{background:#FFEBEE;color:#B71C1C;border-left:3px solid #C62828}
-
-/* NEXT BTN */
-.next-btn{width:100%;background:var(--navy);color:white;border:none;border-radius:var(--radius-sm);padding:14px;font-size:15px;font-weight:600;cursor:pointer;margin-top:10px;display:none;transition:background 0.15s}
-.next-btn.show{display:block}
-.next-btn:hover{background:var(--navy-light)}
+.err{background:#FEECEB;color:var(--orange);border-radius:var(--radius-sm);padding:10px 14px;font-size:13px;margin-bottom:12px;display:none}
+.err.show{display:block}
 
 /* START BTN */
-.start-btn{width:100%;background:linear-gradient(135deg,var(--orange),#C43015);color:white;border:none;border-radius:var(--radius-sm);padding:15px;font-size:16px;font-weight:700;cursor:pointer;box-shadow:0 4px 16px rgba(232,64,28,0.3);transition:all 0.15s;margin-top:4px}
-.start-btn:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(232,64,28,0.4)}
+.start-btn{width:100%;background:linear-gradient(135deg,var(--orange),#C43015);color:white;border:none;border-radius:var(--radius-sm);padding:15px;font-size:16px;font-weight:700;cursor:pointer;box-shadow:0 4px 16px rgba(232,64,28,0.3);margin-top:4px}
+.start-btn:active{transform:scale(0.98)}
 
 /* LOADING */
 .loading{text-align:center;padding:60px 20px}
-.dots{display:flex;justify-content:center;gap:8px;margin-bottom:16px}
+.dots{display:flex;justify-content:center;gap:8px;margin-bottom:14px}
 .dot{width:10px;height:10px;border-radius:50%;animation:pulse 1.2s ease-in-out infinite}
 .dot:nth-child(1){background:var(--orange);animation-delay:0s}
 .dot:nth-child(2){background:var(--navy);animation-delay:0.2s}
 .dot:nth-child(3){background:var(--orange);animation-delay:0.4s}
 @keyframes pulse{0%,80%,100%{opacity:.2;transform:scale(0.8)}40%{opacity:1;transform:scale(1)}}
-.loading p{font-size:14px;color:var(--text2)}
+.load-txt{font-size:14px;color:var(--text2)}
+
+/* PROGRESS */
+.prog-card{background:var(--white);border-radius:var(--radius);padding:14px 16px;box-shadow:var(--shadow);margin-bottom:14px}
+.prog-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.prog-label{font-size:13px;font-weight:600;color:var(--text)}
+.prog-count{font-size:13px;color:var(--text3)}
+.prog-track{height:6px;background:var(--gray2);border-radius:3px;overflow:hidden}
+.prog-fill{height:100%;background:linear-gradient(90deg,var(--orange),var(--orange-light));border-radius:3px;transition:width 0.4s}
+.sec-dots{display:flex;gap:6px;margin-top:8px}
+.sd{flex:1;height:3px;border-radius:2px;background:var(--gray2);transition:background 0.3s}
+.sd.done{background:var(--orange)}
+.sd.active{background:var(--navy)}
+
+/* QUESTION */
+.q-card{background:var(--white);border-radius:var(--radius);padding:18px 16px;box-shadow:var(--shadow)}
+.q-tag{display:inline-block;font-size:11px;font-weight:700;padding:3px 10px;border-radius:10px;margin-bottom:10px}
+.q-tag.s1{background:rgba(232,64,28,0.1);color:var(--orange)}
+.q-tag.s2{background:rgba(27,47,110,0.1);color:var(--navy)}
+.q-tag.s3{background:rgba(232,64,28,0.08);color:var(--orange-light)}
+.q-num{font-size:12px;color:var(--text3);margin-bottom:5px;font-weight:500}
+.q-text{font-size:15px;color:var(--text);line-height:1.55;font-weight:500;margin-bottom:18px}
+
+/* OPTIONS */
+.opts-list{display:flex;flex-direction:column;gap:9px;margin-bottom:14px}
+.opt{background:var(--bg);border:1.5px solid var(--gray2);border-radius:var(--radius-sm);padding:13px 14px;cursor:pointer;display:flex;align-items:flex-start;gap:10px;width:100%;text-align:left;transition:border-color 0.15s,background 0.15s}
+.opt-letter{width:26px;height:26px;border-radius:6px;background:var(--gray2);color:var(--text2);font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all 0.15s}
+.opt-text{font-size:14px;color:var(--text);line-height:1.5;padding-top:2px}
+
+/* SELECTED STATE */
+.opt.selected{border-color:var(--navy) !important;background:rgba(27,47,110,0.07) !important}
+.opt.selected .opt-letter{background:var(--navy) !important;color:white !important}
+
+/* ANSWERED STATES */
+.opt.correct{border-color:var(--green) !important;background:var(--green-bg) !important}
+.opt.correct .opt-letter{background:var(--green) !important;color:white !important}
+.opt.correct .opt-text{color:var(--green) !important}
+.opt.wrong{border-color:var(--red) !important;background:var(--red-bg) !important}
+.opt.wrong .opt-letter{background:var(--red) !important;color:white !important}
+.opt.wrong .opt-text{color:var(--red) !important}
+.opt:disabled{cursor:default}
+
+/* CONFIRM BTN */
+.confirm-btn{display:none;margin:4px auto 0;width:55%;background:var(--orange);color:white;border:none;border-radius:var(--radius-sm);padding:15px 20px;font-size:17px;font-weight:700;cursor:pointer;text-align:center;letter-spacing:0.3px}
+.confirm-btn:active{background:var(--orange-light)}
+
+/* FEEDBACK */
+.feedback{border-radius:var(--radius-sm);padding:12px 14px;font-size:13px;line-height:1.55;display:none;margin-top:10px}
+.feedback.show{display:block}
+.feedback.correct{background:var(--green-bg);color:var(--green);border-left:3px solid var(--green)}
+.feedback.wrong{background:var(--red-bg);color:var(--red);border-left:3px solid var(--red)}
+
+/* NEXT BTN */
+.next-btn{display:none;width:100%;background:var(--navy);color:white;border:none;border-radius:var(--radius-sm);padding:14px;font-size:15px;font-weight:600;cursor:pointer;margin-top:10px}
+.next-btn.show{display:block}
+.next-btn:active{background:var(--navy-light)}
 
 /* RESULT */
-.result-card{background:var(--white);border-radius:var(--radius);padding:32px 20px;box-shadow:var(--shadow-lg);text-align:center;margin-bottom:16px}
-.result-emoji{font-size:48px;margin-bottom:12px}
-.result-score{font-size:56px;font-weight:800;line-height:1;margin-bottom:4px}
-.result-score.pass{color:var(--orange)}
-.result-score.fail{color:var(--navy)}
-.result-total{font-size:16px;color:var(--text2);margin-bottom:12px}
-.result-msg{font-size:15px;font-weight:600;color:var(--text);max-width:400px;margin:0 auto 20px;line-height:1.5}
-.result-breakdown{text-align:left;border-top:1px solid var(--gray2);padding-top:16px;margin-top:4px}
-.bd-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--gray);font-size:14px}
+.res-card{background:var(--white);border-radius:var(--radius);padding:28px 16px;box-shadow:var(--shadow-lg);text-align:center;margin-bottom:14px}
+.res-emoji{font-size:48px;margin-bottom:10px}
+.res-score{font-size:52px;font-weight:800;line-height:1;margin-bottom:4px}
+.res-score.pass{color:var(--orange)}
+.res-score.fail{color:var(--navy)}
+.res-total{font-size:15px;color:var(--text2);margin-bottom:10px}
+.res-msg{font-size:14px;font-weight:500;color:var(--text);max-width:360px;margin:0 auto 18px;line-height:1.55}
+.bd{text-align:left;border-top:1px solid var(--gray2);padding-top:14px}
+.bd-row{display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px solid var(--gray);font-size:14px}
 .bd-row:last-child{border-bottom:none}
-.bd-label{color:var(--text2);display:flex;align-items:center;gap:8px}
-.bd-score{font-weight:700}
-.bd-score.pass{color:#2E7D32}
-.bd-score.fail{color:#C62828}
-.result-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.ra-btn{padding:13px;border-radius:var(--radius-sm);font-size:14px;font-weight:600;cursor:pointer;border:none;transition:all 0.15s}
-.ra-btn.primary{background:var(--orange);color:white}
-.ra-btn.primary:hover{background:var(--orange-light)}
-.ra-btn.secondary{background:var(--gray);color:var(--text)}
-.ra-btn.secondary:hover{background:var(--gray2)}
-.ra-btn.full{grid-column:1/-1;background:var(--navy);color:white}
-.ra-btn.full:hover{background:var(--navy-light)}
+.bd-l{color:var(--text2)}
+.bd-s{font-weight:700}
+.bd-s.pass{color:var(--green)}
+.bd-s.fail{color:var(--red)}
+.act-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px}
+.act-btn{padding:13px;border-radius:var(--radius-sm);font-size:14px;font-weight:600;cursor:pointer;border:none}
+.act-btn.sec{background:var(--gray);color:var(--text)}
+.act-btn.pri{background:var(--orange);color:white}
+.act-btn.full{grid-column:1/-1;background:var(--navy);color:white}
 </style>
 </head>
 <body>
 
 <div class="header">
-  <div class="header-logo">
-    <div class="logo-icon">🎂</div>
-    <div class="logo-text">
-      <div class="logo-name">THE CAKE LAB</div>
-      <div class="logo-sub">Cổng đào tạo nội bộ</div>
-    </div>
+  <div class="logo-icon">🎂</div>
+  <div style="flex:1">
+    <div class="logo-name">THE CAKE LAB</div>
+    <div class="logo-sub">Cổng đào tạo nội bộ</div>
   </div>
-  <button class="header-back" id="back-btn" onclick="goHome()">← Trang chủ</button>
+  <button class="back-btn" id="back-btn" onclick="goHome()">← Trang chủ</button>
 </div>
 
-<!-- HOME SCREEN -->
+<!-- HOME -->
 <div id="s-home" class="screen active">
-  <div class="home-hero">
+  <div class="hero">
     <div class="hero-badge">Đào tạo nội bộ</div>
     <h1>CHÀO MỪNG ĐẾN VỚI<br>CỔNG ĐÀO TẠO THE CAKE LAB</h1>
   </div>
-  <div class="home-content">
-    <div class="section-label">Phần 1 — Kiến thức đào tạo</div>
-    <div class="training-grid">
-      <div class="training-card" onclick="openPDF(1)">
-        <div class="tc-icon">🤝</div>
-        <div class="tc-num">Phần 1</div>
-        <div class="tc-name">Tiêu chuẩn dịch vụ</div>
-        <div class="tc-desc">Quy trình phục vụ & 5 điểm chạm thực chiến</div>
-        <div class="tc-arrow">›</div>
+  <div class="home-body">
+    <div class="sec-label">Phần 1 — Kiến thức đào tạo</div>
+    <div class="t-grid">
+      <div class="t-card" onclick="openPDF(1)">
+        <div class="t-icon">🤝</div>
+        <div class="t-num">Phần 1</div>
+        <div class="t-name">Tiêu chuẩn dịch vụ</div>
+        <div class="t-desc">Quy trình phục vụ & 5 điểm chạm thực chiến</div>
       </div>
-      <div class="training-card" onclick="openPDF(2)">
-        <div class="tc-icon">🏪</div>
-        <div class="tc-num">Phần 2</div>
-        <div class="tc-name">Tiêu chuẩn trưng bày</div>
-        <div class="tc-desc">Cách sắp xếp & trình bày sản phẩm chuẩn mực</div>
-        <div class="tc-arrow">›</div>
+      <div class="t-card" onclick="openPDF(2)">
+        <div class="t-icon">🏪</div>
+        <div class="t-num">Phần 2</div>
+        <div class="t-name">Tiêu chuẩn trưng bày</div>
+        <div class="t-desc">Cách sắp xếp & trình bày sản phẩm chuẩn mực</div>
       </div>
-      <div class="training-card" onclick="openPDF(3)">
-        <div class="tc-icon">🎂</div>
-        <div class="tc-num">Phần 3</div>
-        <div class="tc-name">Tiêu chuẩn sản phẩm</div>
-        <div class="tc-desc">Kiến thức về nguyên liệu, hương vị & đặc điểm sản phẩm</div>
-        <div class="tc-arrow">›</div>
+      <div class="t-card" onclick="openPDF(3)">
+        <div class="t-icon">🎂</div>
+        <div class="t-num">Phần 3</div>
+        <div class="t-name">Tiêu chuẩn sản phẩm</div>
+        <div class="t-desc">Kiến thức nguyên liệu, hương vị & đặc điểm sản phẩm</div>
       </div>
-      <div class="training-card" onclick="openPDF(4)">
-        <div class="tc-icon">💬</div>
-        <div class="tc-num">Phần 4</div>
-        <div class="tc-name">Tình huống & cách xử lý</div>
-        <div class="tc-desc">Kịch bản thực tế & mẫu câu trả lời chuẩn</div>
-        <div class="tc-arrow">›</div>
+      <div class="t-card" onclick="openPDF(4)">
+        <div class="t-icon">💬</div>
+        <div class="t-num">Phần 4</div>
+        <div class="t-name">Tình huống & cách xử lý</div>
+        <div class="t-desc">Kịch bản thực tế & mẫu câu trả lời chuẩn</div>
       </div>
     </div>
-
-    <div class="section-label">Phần 2 — Bài test sau đào tạo</div>
+    <div class="sec-label">Phần 2 — Bài test sau đào tạo</div>
     <div class="test-card" onclick="goTest()">
-      <div class="test-card-icon">📝</div>
-      <div class="test-card-text">
+      <div class="test-icon">📝</div>
+      <div class="test-info">
         <h3>Làm bài test</h3>
         <p>45 câu hỏi · 3 phần · Cần đúng 45/45 để đạt</p>
       </div>
-      <div class="test-card-arrow">›</div>
+      <div class="test-arrow">›</div>
     </div>
   </div>
 </div>
 
-<!-- PDF VIEWER SCREEN -->
+<!-- PDF -->
 <div id="s-pdf" class="pdf-screen">
-  <div class="pdf-toolbar">
+  <div class="pdf-bar">
     <div class="pdf-title" id="pdf-title">Tài liệu đào tạo</div>
     <span class="pdf-badge" id="pdf-badge">Phần 1</span>
   </div>
   <iframe class="pdf-frame" id="pdf-frame" src="" allowfullscreen></iframe>
 </div>
 
-<!-- TEST SCREEN -->
+<!-- TEST -->
 <div id="s-test" class="screen">
-  <div class="test-screen-inner">
+  <div class="test-body">
 
-    <!-- STAFF FORM -->
-    <div id="staff-section">
-      <div class="staff-form">
+    <div id="staff-sec">
+      <div class="staff-card">
         <h2>📋 Thông tin nhân viên</h2>
         <div class="form-row">
           <div class="form-group">
             <label>Họ và tên</label>
-            <input type="text" id="staff-name" placeholder="Nhập họ tên đầy đủ"/>
+            <input type="text" id="staff-name" placeholder="Nhập họ tên"/>
           </div>
           <div class="form-group">
             <label>Cửa hàng</label>
             <select id="store-sel">
-              <option value="">— Chọn cửa hàng —</option>
+              <option value="">— Chọn —</option>
               <option>Tuệ Tĩnh</option>
               <option>Times City</option>
               <option>Trung Hòa</option>
@@ -285,67 +268,55 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Helvetica Neue',sa
           </div>
         </div>
       </div>
-      <div class="err-msg" id="err-msg">Vui lòng nhập đầy đủ họ tên và chọn cửa hàng.</div>
+      <div class="err" id="err-msg">Vui lòng nhập đủ họ tên và chọn cửa hàng.</div>
       <button class="start-btn" onclick="startTest()">Bắt đầu làm bài →</button>
     </div>
 
-    <!-- LOADING -->
-    <div class="loading" id="loading-section" style="display:none">
+    <div class="loading" id="loading-sec" style="display:none">
       <div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
-      <p>Đang chuẩn bị bài test...</p>
+      <div class="load-txt">Đang tải câu hỏi...</div>
     </div>
 
-    <!-- QUIZ -->
-    <div id="quiz-section" style="display:none">
-      <div class="test-progress">
-        <div class="progress-header">
-          <span class="progress-label" id="prog-label">Phần 1: Tiêu chuẩn dịch vụ</span>
-          <span class="progress-count" id="prog-count">1 / 45</span>
+    <div id="quiz-sec" style="display:none">
+      <div class="prog-card">
+        <div class="prog-header">
+          <span class="prog-label" id="prog-label">Phần 1</span>
+          <span class="prog-count" id="prog-count">1 / 45</span>
         </div>
-        <div class="progress-track"><div class="progress-fill" id="prog-fill" style="width:0%"></div></div>
-        <div class="section-indicators">
-          <div class="si active" id="si-1"></div>
-          <div class="si" id="si-2"></div>
-          <div class="si" id="si-3"></div>
+        <div class="prog-track"><div class="prog-fill" id="prog-fill" style="width:0%"></div></div>
+        <div class="sec-dots">
+          <div class="sd active" id="sd-0"></div>
+          <div class="sd" id="sd-1"></div>
+          <div class="sd" id="sd-2"></div>
         </div>
       </div>
-
-      <div class="question-card">
-        <span class="q-section-tag s1" id="q-tag">Tiêu chuẩn dịch vụ</span>
-        <div class="q-number" id="q-number">Câu 1</div>
+      <div class="q-card">
+        <span class="q-tag s1" id="q-tag">Tiêu chuẩn dịch vụ</span>
+        <div class="q-num" id="q-num">Câu 1</div>
         <div class="q-text" id="q-text"></div>
-        <div class="options" id="options"></div>
+        <div class="opts-list" id="opts-list"></div>
+        <button class="confirm-btn" id="confirm-btn" onclick="confirmAnswer()">Xác nhận</button>
         <div class="feedback" id="feedback"></div>
         <button class="next-btn" id="next-btn" onclick="nextQuestion()">Câu tiếp theo →</button>
       </div>
     </div>
 
-    <!-- RESULT -->
-    <div id="result-section" style="display:none">
-      <div class="result-card">
-        <div class="result-emoji" id="result-emoji">🎉</div>
-        <div class="result-score" id="result-score"></div>
-        <div class="result-total">/ 45 câu đúng</div>
-        <div class="result-msg" id="result-msg"></div>
-        <div class="result-breakdown">
-          <div class="bd-row">
-            <span class="bd-label">🤝 Tiêu chuẩn dịch vụ</span>
-            <span class="bd-score" id="bd-1"></span>
-          </div>
-          <div class="bd-row">
-            <span class="bd-label">🎂 Tiêu chuẩn sản phẩm</span>
-            <span class="bd-score" id="bd-2"></span>
-          </div>
-          <div class="bd-row">
-            <span class="bd-label">💬 Tình huống & xử lý</span>
-            <span class="bd-score" id="bd-3"></span>
-          </div>
+    <div id="result-sec" style="display:none">
+      <div class="res-card">
+        <div class="res-emoji" id="res-emoji">🎉</div>
+        <div class="res-score" id="res-score"></div>
+        <div class="res-total">/ 45 câu đúng</div>
+        <div class="res-msg" id="res-msg"></div>
+        <div class="bd">
+          <div class="bd-row"><span class="bd-l">🤝 Tiêu chuẩn dịch vụ</span><span class="bd-s" id="bd-0"></span></div>
+          <div class="bd-row"><span class="bd-l">🎂 Tiêu chuẩn sản phẩm</span><span class="bd-s" id="bd-1"></span></div>
+          <div class="bd-row"><span class="bd-l">💬 Tình huống & xử lý</span><span class="bd-s" id="bd-2"></span></div>
         </div>
       </div>
-      <div class="result-actions">
-        <button class="ra-btn secondary" onclick="goHome()">🏠 Trang chủ</button>
-        <button class="ra-btn primary" onclick="copyResult()">📋 Sao chép</button>
-        <button class="ra-btn full" onclick="retryTest()">🔄 Làm lại bài test</button>
+      <div class="act-grid">
+        <button class="act-btn sec" onclick="goHome()">🏠 Trang chủ</button>
+        <button class="act-btn pri" onclick="copyResult()">📋 Sao chép</button>
+        <button class="act-btn full" onclick="retryTest()">🔄 Làm lại bài test</button>
       </div>
     </div>
 
@@ -353,294 +324,325 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Helvetica Neue',sa
 </div>
 
 <script>
-// ── PDF LINKS ────────────────────────────────────────────────
-const PDF_LINKS = {
-  1: "https://drive.google.com/file/d/1utj-rOWAbjCMRWRelnxV42VuzKep1G37/preview",
-  2: "https://drive.google.com/file/d/1KWA6619O49hER3qg8ziEVULH0P82JnYd/preview",
-  3: "https://drive.google.com/file/d/1TAG97ENkNWtp_nXFBpQZ00aPHY3iQF5P/preview",
-  4: "https://drive.google.com/file/d/1Bq8Com4Cd1QjGii-IGFFcG4tGm1vFSxt/preview"
-};
-const PDF_NAMES = {
-  1:"Tiêu chuẩn dịch vụ",
-  2:"Tiêu chuẩn trưng bày",
-  3:"Tiêu chuẩn sản phẩm",
-  4:"Tình huống & cách xử lý"
-};
+// ── CONFIG ───────────────────────────────────────────────────
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxMvWEIXeeYGJHzJe3NCf8W1LKY-W-ydba-EzvN02qrmCZDH8uxCw8VfODPBTvmFOuyXw/exec";
 
-// ── QUESTION DATA ────────────────────────────────────────────
-const SECTIONS = [
-  {
-    name:"Tiêu chuẩn dịch vụ", tag:"s1",
-    questions:[
-      {q:"Quản lý định nghĩa thế nào là một 'Nhân viên Tối thiểu' và một 'Nhân viên Premium' tại cửa hàng?",opts:["Nhân viên Tối thiểu chỉ làm đúng trách nhiệm, chào câu mẫu, báo giá, đóng gói xong là hết. Nhân viên Premium làm việc bằng sự quan sát, nhớ tên khách, chủ động hỏi nhu cầu, biết kể chuyện sản phẩm và chào tiễn cá nhân hóa.","Nhân viên Tối thiểu là người mới vào chưa có kinh nghiệm, còn Nhân viên Premium là người đã làm việc trên 1 năm và được tăng lương theo hiệu suất bán hàng.","Nhân viên Tối thiểu chỉ làm đúng trách nhiệm, còn Nhân viên Premium là người biết bán thêm sản phẩm và đạt doanh số cao nhất ca.","Nhân viên Tối thiểu cần được đào tạo thêm, còn Nhân viên Premium là người đã hoàn thành tất cả các bài kiểm tra nội bộ của cửa hàng."],ans:0},
-      {q:"Khi khách hàng chấp nhận trả một mức giá cao để mua bánh tại The Cake Lab, thực tế họ đang muốn mua điều gì ngoài một món bánh ngọt?",opts:["Họ mua chất lượng nguyên liệu cao cấp và kỹ thuật làm bánh chuyên nghiệp hơn so với các tiệm bánh thông thường khác.","Họ mua giải pháp quà tặng và cảm xúc: để thể hiện sự trân trọng trong những dịp đặc biệt như sinh nhật, lễ kỷ niệm, hoặc làm quà đi gặp đối tác.","Họ mua thương hiệu nổi tiếng và sự đảm bảo về vệ sinh an toàn thực phẩm được kiểm định chặt chẽ.","Họ mua sự tiện lợi khi đặt hàng online nhanh chóng và được giao bánh đúng giờ theo yêu cầu."],ans:1},
-      {q:"Tại sao điểm chạm đầu tiên (Chào đón trong 5 giây) lại được coi là khoảnh khắc sống còn khi khách bước vào tiệm?",opts:["Vì điểm chạm đầu tiên giúp nhân viên nhận biết ngay loại khách hàng để phân loại và đưa ra mức giá phù hợp.","Vì nếu không chào trong 5 giây, khách sẽ tự chọn bánh mà không cần tư vấn và nhân viên sẽ mất cơ hội upsell.","Vì điểm chạm đầu tiên này quyết định đến 80% ấn tượng ban đầu của khách hàng đối với dịch vụ của cửa hàng.","Vì điểm chạm đầu tiên quyết định đến 50% doanh thu ca làm việc và ảnh hưởng đến KPI của toàn đội."],ans:2},
-      {q:"Hành động vật lý nào bắt buộc phải thực hiện song song với câu chào khi có khách bước vào cửa hàng?",opts:["Song song với câu chào, nhân viên phải nhanh chóng đến quầy lấy menu và đưa tận tay cho khách ngay khi họ vừa vào cửa.","Song song với câu chào, nhân viên phải dừng mọi việc đang làm và tiến lại gần hỏi ngay khách cần mua loại bánh nào.","Song song với câu chào, nhân viên phải giới thiệu ngay sản phẩm mới nhất của tiệm để tạo ấn tượng từ đầu.","Song song với quy tắc 5 giây (Mắt nhìn – Cười – Chào), nhân viên bắt buộc phải kết hợp với hành động chủ động mở cửa cho khách."],ans:3},
-      {q:"Mục đích cốt lõi của việc chủ động đặt câu hỏi khai thác nhu cầu khi khách đứng trước tủ bánh là gì?",opts:["Để nhanh chóng thu hẹp các lựa chọn phù hợp nhất cho khách, giúp khách không bị hoang mang trước quá nhiều loại bánh và tiết kiệm thời gian chọn lựa.","Để khách hàng cảm thấy được quan tâm và ở lại tiệm lâu hơn, từ đó tăng khả năng họ mua thêm sản phẩm phụ.","Để nhân viên nắm được ngân sách của khách hàng và chỉ giới thiệu những loại bánh trong tầm giá phù hợp.","Để thu thập thông tin khách hàng phục vụ cho chương trình khách hàng thân thiết và các chiến dịch marketing sau này."],ans:0},
-      {q:"Sau khi khai thác xong dịp sử dụng và khẩu vị của khách, nhân viên nên đưa ra tối đa bao nhiêu gợi ý sản phẩm?",opts:["Nhân viên nên đưa ra đúng 3 gợi ý để khách có đủ lựa chọn so sánh về giá cả và hương vị trước khi quyết định.","Nhân viên chỉ cần đưa ra đúng 2 gợi ý tốt nhất và phù hợp nhất dựa trên câu trả lời của khách để họ dễ dàng đưa ra quyết định.","Nhân viên nên giới thiệu tất cả các sản phẩm phù hợp với dịp sử dụng để khách thấy sự đa dạng của cửa hàng.","Nhân viên chỉ nên đưa ra đúng 1 gợi ý tốt nhất để tránh khách phân vân và giúp quá trình chốt đơn diễn ra nhanh hơn."],ans:1},
-      {q:"Điền vào chỗ trống theo tư duy Premium: 'Khách hàng không mua bánh, họ mua __________ mà các bạn vẽ ra trong tâm trí họ.'",opts:["'Sự sang trọng'. Nhân viên Premium phải dùng ngôn ngữ thể hiện đẳng cấp thương hiệu và sự khác biệt so với các tiệm bánh thông thường.","'Cảm giác hạnh phúc'. Nhân viên Premium phải tập trung vào cảm xúc tích cực mà món bánh mang lại cho người nhận thay vì mô tả vị bánh.","'Hình ảnh vị ngon'. Nhân viên Premium phải dùng từ ngữ giàu tính hình ảnh, mô tả kết cấu, nguyên liệu để kích thích vị giác của khách thay vì chỉ khen bánh ngon, ngọt chung chung.","'Trải nghiệm cao cấp'. Nhân viên Premium phải nhấn mạnh vào quy trình làm bánh tỉ mỉ và nguồn gốc nguyên liệu nhập khẩu chất lượng cao."],ans:2},
-      {q:"Tại sao việc ép khách đi 2 người mua một chiếc bánh sinh nhật size lớn lại bị coi là sai lầm trong nghệ thuật Upsell?",opts:["Vì hành động này vi phạm quy định về định mức sản phẩm, mỗi khách chỉ được mua tối đa 1 size bánh theo quy định nội bộ của tiệm.","Vì hành động này làm giảm số lượng đơn hàng trong ngày và ảnh hưởng đến chỉ tiêu doanh thu theo đầu hóa đơn của cửa hàng.","Vì hành động này làm khách cảm thấy bị phán xét về số người đi cùng, ảnh hưởng đến sự riêng tư và quyết định mua hàng.","Vì hành động này xuất phát từ việc 'nhìn vào túi tiền của khách' (cố tình tăng doanh thu) chứ không nhìn vào lợi ích thực tế của họ, khiến trải nghiệm dịch vụ bị giảm sút."],ans:3},
-      {q:"Hãy đưa ra lời thoại mẫu để gợi ý (Upsell) một sản phẩm đi kèm khi khách hàng chọn mua bánh mì gối?",opts:["'Dạ, với dòng bánh gối này, em gợi ý mình dùng thêm một hộp sốt cheese dẻo hoặc bơ caramel sử dụng cùng sẽ rất hợp và ngon hơn đấy ạ!'","'Dạ, nếu anh/chị mua thêm một ổ bánh mì gối nữa thì em có thể áp dụng ưu đãi mua 2 tặng 1 cho anh/chị ạ!'","'Dạ, bánh mì gối bên em hôm nay vừa ra lò, anh/chị có muốn thử thêm một ổ nhỏ dùng thử tại chỗ không ạ?'","'Dạ, với bánh mì gối này anh/chị có muốn nâng lên size lớn hơn không, chỉ thêm 10k thôi mà được nhiều hơn rất nhiều ạ?'"],ans:0},
-      {q:"Bạn khuyên khách hàng điều gì khi họ vừa chọn xong một mẫu bánh ngọt tại quầy để thực hiện kỹ thuật Upsell chéo?",opts:["Chủ động gợi ý khách hàng mua thêm một chiếc bánh tương tự để tặng người thân hoặc đồng nghiệp nhân dịp đặc biệt gần đây.","Chủ động gợi ý tư vấn thêm cho khách các dòng đồ uống phù hợp với hương vị của chiếc bánh ngọt mà họ vừa lựa chọn.","Chủ động gợi ý khách hàng nâng cấp lên size lớn hơn của chiếc bánh vừa chọn để tiết kiệm chi phí trên mỗi phần ăn.","Chủ động gợi ý khách hàng đăng ký thẻ thành viên để tích điểm và nhận ưu đãi cho những lần mua bánh tiếp theo."],ans:1},
-      {q:"Điền vào chỗ trống nguyên tắc tối cao tại The Cake Lab: 'Khách hàng luôn đúng về mặt __________.'",opts:["'Quyết định'. Mọi lựa chọn của khách hàng đều cần được tôn trọng tuyệt đối, nhân viên không được can thiệp hay thay đổi ý kiến của họ.","'Yêu cầu'. Khách hàng luôn có quyền đưa ra yêu cầu đặc biệt và nhân viên phải cố gắng đáp ứng tối đa dù vượt ngoài quy định.","'Cảm xúc'. Khi có sự cố, cảm xúc tiêu cực của khách là có thật, nhân viên không được tranh luận đúng sai mà phải xoa dịu cảm xúc đó trước.","'Nhận xét'. Mọi phản hồi từ khách hàng đều phải được ghi nhận và chuyển ngay lên ban quản lý để cải thiện chất lượng dịch vụ."],ans:2},
-      {q:"Theo quy trình 5 bước xử lý khiếu nại, sau khi đã 'Tiếp nhận' và 'Xin lỗi' khách hàng thành công, 3 bước tiếp theo cần làm là gì?",opts:["Trình tự 3 bước tiếp theo là: Giải thích nguyên nhân → Đề xuất phương án bồi thường → Ghi nhận vào sổ khiếu nại của cửa hàng.","Trình tự 3 bước tiếp theo là: Liên hệ quản lý → Chờ phê duyệt phương án xử lý → Thực hiện bồi thường theo hướng dẫn của cấp trên.","Trình tự 3 bước tiếp theo là: Kiểm tra lại sản phẩm → Xác định lỗi thuộc bên nào → Đề xuất giải pháp phù hợp với từng trường hợp.","Trình tự 3 bước tiếp theo lần lượt là: Giải quyết (đổi bánh/hoàn tiền) → Xác nhận (kiểm tra lại sự hài lòng của khách) → Báo cáo (ghi nhận sự cố cho quản lý/hệ thống)."],ans:3},
-      {q:"Nếu khách hàng phàn nàn rằng bánh bị hỏng do bên vận chuyển (shipper), tại sao nhân viên vẫn không được giải thích lý do này với khách ngay từ đầu?",opts:["Vì tại thời điểm khách đang giận, mọi lời giải thích (đổ lỗi cho bếp hay shipper) đều bị nghe thành 'tiệm đang bao biện và đùn đẩy trách nhiệm', khiến khách tức giận hơn.","Vì đây là thông tin nội bộ, nhân viên không được phép chia sẻ thông tin về đối tác vận chuyển với khách hàng theo quy định bảo mật.","Vì nhân viên chưa xác minh được thông tin chính xác, giải thích sai có thể tạo ra mâu thuẫn pháp lý giữa cửa hàng và đơn vị vận chuyển.","Vì việc đề cập đến shipper sẽ khiến khách hàng liên hệ trực tiếp với bên vận chuyển, làm mất đi cơ hội cửa hàng tự xử lý khiếu nại."],ans:0},
-      {q:"Thời điểm đóng gói và trao bánh bằng hai tay gửi gắm lời chúc gì ẩn sau hành động đó?",opts:["Gửi gắm thông điệp 'Chúng em cam kết chất lượng sản phẩm đến tay anh/chị hoàn toàn nguyên vẹn và đúng như đã đặt hàng.'","Gửi gắm lời chúc 'Chúc anh/chị có một bữa tiệc thật trọn vẹn', đồng thời thể hiện sự biết ơn vì khách hàng đã tin tưởng lựa chọn sản phẩm của tiệm.","Gửi gắm lời nhắc 'Anh/chị nhớ bảo quản bánh ở nhiệt độ phòng và dùng trong vòng 24 giờ để giữ đúng hương vị nhé!'","Gửi gắm thông điệp 'Chúng em trân trọng và biết ơn vì anh/chị đã chọn The Cake Lab trong dịp đặc biệt của mình.'"],ans:1},
-      {q:"Trong lời chào tiễn cá nhân hóa, ngoài việc chúc mừng bữa tiệc của khách, nhân viên Premium cần khéo léo xin thêm điều gì cho lần mua hàng sau?",opts:["Nhân viên cần khéo léo xin số điện thoại của khách để có thể liên hệ thông báo về các chương trình khuyến mãi và sản phẩm mới.","Nhân viên cần khéo léo mời khách tham gia chụp ảnh cùng sản phẩm để đăng lên trang mạng xã hội của cửa hàng.","Nhân viên cần khéo léo xin chút phản hồi (feedback) của khách về vị bánh sau khi họ tổ chức tiệc xong để thể hiện sự quan tâm chu đáo.","Nhân viên cần khéo léo nhắc khách nhớ đặt hàng sớm cho dịp tiếp theo vì cửa hàng thường xuyên hết hàng vào cuối tuần."],ans:2}
-    ]
-  },
-  {
-    name:"Tiêu chuẩn sản phẩm", tag:"s2",
-    questions:[
-      {q:"Whipping cream tại The Cake Lab được làm từ gì?",opts:["Kem thực vật cao cấp không cholesterol","Hỗn hợp sữa bò và kem thực vật","Sữa bò pha trộn với kem non-dairy","100% sữa bò nguyên chất, không pha trộn kem top"],ans:3},
-      {q:"Whipping cream của The Cake Lab giúp bánh giảm được bao nhiêu % đường so với công thức thông thường?",opts:["Giảm 30 - 50% đường","Giảm 60 - 70% đường","Giảm 5 - 10% đường","Giảm 10 - 20% đường"],ans:0},
-      {q:"Đâu là điểm mạnh của sản phẩm The Cake Lab?",opts:["Sản xuất công nghiệp, giá thành cạnh tranh và hạn sử dụng dài","Nhập khẩu nguyên liệu từ nước ngoài, không dùng hoa quả tươi","Sử dụng chất bảo quản để kéo dài hạn sử dụng và giá thành rẻ","Ít ngọt, giảm đường, không chất bảo quản và làm thủ công hoàn toàn"],ans:3},
-      {q:"Khách hàng muốn dùng đường ăn kiêng trong bánh, nhân viên cần xử lý như thế nào?",opts:["Từ chối vì The Cake Lab không cung cấp dịch vụ này","Tư vấn khách đặt trước vì có thể thay thế bằng đường ăn kiêng (BSN)","Chấp nhận đơn ngay mà không cần báo trước","Đề xuất khách mua loại bánh khác không có đường"],ans:1},
-      {q:"Tại sao bánh kem của The Cake Lab có hạn sử dụng ngắn?",opts:["Vì quy trình sản xuất chưa được tối ưu hóa","Vì không sử dụng chất bảo quản, đảm bảo an toàn thực phẩm","Vì nguyên liệu nhập khẩu không đảm bảo chất lượng lâu dài","Vì bánh được làm từ trái cây nhân tạo dễ hỏng"],ans:1},
-      {q:"Khi khách hỏi tại sao bánh The Cake Lab giá cao hơn các nơi khác, nhân viên nên trả lời như thế nào?",opts:["Thừa nhận giá cao và đề xuất khách tìm nơi khác phù hợp hơn","Cho biết giá cao do chi phí mặt bằng và nhân công tại Hà Nội","Giải thích do nguyên liệu cao cấp (whipping cream, hoa quả tươi), không pha trộn, không chất bảo quản, làm thủ công","Nói rằng giá cao vì thương hiệu nổi tiếng và được nhiều người biết đến"],ans:2},
-      {q:"Bánh BSN Xoài Cheese 14 (mẫu Dome) có kết cấu bên trong gồm những gì?",opts:["3 lớp cốt cacao, kem cheese và xoài sấy đan xen","3 lớp cốt bông lan, kem cheese và xoài tươi đan xen","3 lớp cốt vani, kem whipping và xoài tươi đan xen","3 lớp cốt bông lan, kem matcha và xoài tươi đan xen"],ans:1},
-      {q:"Bánh BSN Tiramisu 14 (mẫu nơ) được thấm bạt bằng gì?",opts:["Espresso coffee và rượu Rum","Espresso coffee và sữa tươi","Trà đen và siro đường","Cà phê đen và siro caramel"],ans:0},
-      {q:"Bánh BSN Matcha Dâu 14 có lớp kem bên ngoài là gì?",opts:["Kem whipping trắng","Kem cheese","Kem matcha","Kem phúc bồn tử"],ans:2},
-      {q:"Bánh Minicake Triple Chocolate có kết cấu bao nhiêu lớp?",opts:["4 lớp, gồm bạt choco và socola tươi đan xen","3 lớp, gồm bạt choco và kem chocolate đan xen","2 lớp, gồm bạt choco và ganache chocolate","5 lớp, gồm bạt choco, kem và socola đan xen"],ans:0},
-      {q:"Bánh Keto Brownie của The Cake Lab được tạo ngọt bằng gì thay cho đường tinh luyện?",opts:["Siro agave","Đường cỏ ngọt (Stevia)","Isomalt","Mật ong nguyên chất"],ans:2},
-      {q:"Bánh Tart Mochi Sầu gồm những thành phần chính nào?",opts:["Vỏ tart giòn, mochi dẻo, kem cheese và sầu đông lạnh","Vỏ tart giòn, pudding gạo nếp và sầu tươi","Vỏ tart giòn, mochi dẻo, kem whipping mascarpone và sầu tươi","Vỏ tart giòn, mochi dẻo, kem custard và xoài tươi"],ans:2},
-      {q:"Bánh mì gối Hạt Nảy Mầm được bán như thế nào?",opts:["1 túi gồm 4 lát bánh, lát hình tròn, giòn nhẹ","1 hộp gồm 3 lát bánh, lát hình vòm, mềm mịn","1 túi gồm 6 lát bánh, lát hình vuông, mềm có độ đàn hồi","1 túi gồm 5 lát bánh, lát hình vòm, mềm có độ đàn hồi"],ans:3},
-      {q:"Sốt Cheese Dẻo 120G của The Cake Lab có kết cấu và cách dùng như thế nào?",opts:["Kết cấu đặc dẻo, ngậy béo, dùng chấm ăn lạnh hoặc phết bánh mì","Kết cấu lỏng nhẹ, dùng để rưới lên bánh hoặc pha đồ uống","Kết cấu cứng, dùng để trang trí bánh kem","Kết cấu mềm mịn, chỉ dùng để phết bánh mì nướng"],ans:0},
-      {q:"Bánh Cookie Hạnh Nhân Dừa 150G có đặc điểm ngoại hình như thế nào?",opts:["Bánh hình chữ nhật mỏng giòn, mặt phủ hạnh nhân lát","Bánh tròn giòn nhẹ, mặt phủ hạnh nhân lát, nướng vàng nâu","Bánh hình hoa tròn, mặt phủ dừa sợi, nướng vàng nhạt","Bánh tròn mềm ẩm, mặt phủ hạnh nhân lát và dừa nạo"],ans:1}
-    ]
-  },
-  {
-    name:"Tình huống & cách xử lý", tag:"s3",
-    questions:[
-      {q:"5 bước trong quy trình xử lý khiếu nại là gì?",opts:["Lắng nghe, xin lỗi, tìm hiểu, giải quyết, báo cáo","Tiếp nhận, cảm ơn, tìm hiểu, đề xuất, kết thúc","Tiếp nhận, xin lỗi, giải thích, đề xuất, kết thúc","Tiếp nhận, xin lỗi, tìm hiểu, đề xuất, theo dõi"],ans:3},
-      {q:"Nội dung của bước \"Lắng nghe\" (Tiếp nhận) là gì?",opts:["Lắng nghe ý kiến phản hồi của khách. Ghi nhận số điện thoại khách và thời gian mua hàng.","Lắng nghe toàn bộ phản ánh của khách. Ghi nhận đầy đủ thông tin đơn hàng, tên khách và nội dung vấn đề.","Lắng nghe một phần phản ánh của khách. Ghi nhận đầy đủ thông tin đơn hàng và nội dung vấn đề.","Ngắt lời khách khi cần thiết. Ghi nhận thông tin đơn hàng, tên khách và nội dung vấn đề."],ans:1},
-      {q:"Nội dung của bước \"Xin lỗi\" là gì?",opts:["Thể hiện sự quan tâm và giải thích nguyên nhân ngay lập tức, tạo nền tảng cho đối thoại tích cực.","Thể hiện sự quan tâm và xin lỗi chân thành ngay lập tức, tạo nền tảng cho đối thoại tích cực.","Thể hiện sự quan tâm và xin lỗi chân thành sau khi tìm hiểu rõ nguyên nhân, tạo nền tảng cho đối thoại tích cực.","Thể hiện sự đồng cảm và xin lỗi ngắn gọn, chuyển nhanh sang bước tìm hiểu vấn đề."],ans:1},
-      {q:"Mẫu câu hội thoại chuẩn của mục \"Mở đầu\" là gì?",opts:["Em rất tiếc vì sự cố xảy ra với anh/chị, em sẽ hỗ trợ giải quyết ngay ạ.","Em xin lỗi anh/chị ạ. Anh/chị vui lòng cho em biết vấn đề đang gặp phải là gì không ạ?","Em rất xin lỗi vì trải nghiệm chưa tốt của anh/chị trong lần mua hàng này ạ.","Dạ em chào anh/chị. Em rất mong được hỗ trợ anh/chị trong lần này ạ."],ans:2},
-      {q:"Mẫu câu hội thoại chuẩn của mục \"Cảm ơn phản hồi\" là gì?",opts:["Em rất vui vì anh/chị đã dành thời gian liên hệ để chúng em có cơ hội khắc phục sự cố ạ.","Em xin ghi nhận phản hồi của anh/chị và sẽ chuyển đến bộ phận liên quan để cải thiện ạ.","Em chân thành cảm ơn anh/chị đã phản hồi để chúng em có thể cải thiện tốt hơn trong thời gian tới ạ.","Em chân thành cảm ơn anh/chị đã tin tưởng và ủng hộ The Cake Lab trong thời gian qua ạ."],ans:2},
-      {q:"Mẫu câu trả lời đúng khi: \"Khách đặt bánh online nhưng nhân viên quên ghi nhận đơn\"?",opts:["Dạ em rất xin lỗi anh/chị. Bên em xác nhận có sai sót trong quá trình tiếp nhận đơn hàng. Bên em sẽ ưu tiên xử lý nhanh nhất đơn hàng của anh/chị, em xin phép giảm giá 10% cho đơn bánh này của anh/chị ạ. ➤ Nếu khách không còn nhu cầu: Xin phép hoàn lại tiền cho khách kèm voucher ưu đãi 10% cho lần sau quay lại","Dạ em rất xin lỗi anh/chị. Bên em xác nhận có sai sót trong quá trình tiếp nhận đơn hàng. Bên em sẽ ưu tiên xử lý nhanh nhất đơn hàng của anh/chị. ➤ Nếu khách không còn nhu cầu: Xin phép hoàn lại tiền cho khách kèm tặng thêm 1 phần bánh miễn phí cho lần sau quay lại","Dạ em rất xin lỗi anh/chị. Bên em xác nhận có sai sót trong quá trình tiếp nhận đơn hàng. Bên em sẽ ưu tiên xử lý nhanh nhất đơn hàng của anh/chị, em xin phép giảm giá 20% cho đơn bánh này của anh/chị ạ. ➤ Nếu khách không còn nhu cầu: Xin phép hoàn lại tiền cho khách kèm voucher ưu đãi 20% cho lần sau quay lại","Dạ em rất xin lỗi anh/chị. Bên em xác nhận có sai sót trong quá trình tiếp nhận đơn hàng. Bên em sẽ ưu tiên xử lý nhanh nhất đơn hàng của anh/chị, em xin phép miễn phí ship cho đơn bánh này của anh/chị ạ. ➤ Nếu khách không còn nhu cầu: Xin phép hoàn lại tiền cho khách kèm voucher ưu đãi 20% cho lần sau quay lại"],ans:2},
-      {q:"Mẫu câu trả lời đúng khi: \"Khách hỏi Kem whipping là kem gì vậy em?\"",opts:["Dạ kem whipping là dòng kem có nguồn gốc từ sữa bò, vị thơm béo tự nhiên và có thể điều chỉnh được lượng đường. Bên em có giảm 30–50% lượng đường so với bánh thông thường ạ. Bên em ưu tiên sử dụng whipping cream để bánh có hương vị thanh nhẹ, dễ ăn và không bị ngấy ạ.","Dạ kem whipping là dòng kem có nguồn gốc từ thực vật, vị thơm béo nhẹ và có thể điều chỉnh được lượng đường. Bên em có giảm 30–50% lượng đường so với bánh thông thường ạ. Bên em ưu tiên sử dụng whipping cream để bánh có hương vị thanh nhẹ, dễ ăn và không bị ngấy ạ.","Dạ kem whipping là dòng kem có nguồn gốc từ sữa bò, vị thơm béo tự nhiên và có thể điều chỉnh được lượng đường. Bên em có giảm 20–30% lượng đường so với bánh thông thường ạ. Bên em ưu tiên sử dụng whipping cream để bánh có hương vị thanh nhẹ, dễ ăn và không bị ngấy ạ.","Dạ kem whipping là dòng kem có nguồn gốc từ sữa bò, vị thơm béo tự nhiên nhưng lượng đường cố định không điều chỉnh được. Bên em ưu tiên sử dụng whipping cream để bánh có hương vị thanh nhẹ, dễ ăn và không bị ngấy ạ."],ans:0},
-      {q:"Mẫu câu trả lời đúng khi: \"Sao bánh bên em để date lâu thế? Có chất bảo quản không?\"",opts:["Dạ bánh nhà em không sử dụng chất bảo quản. Hạn sử dụng bên em được xác định dựa trên công thức sản phẩm và điều kiện bảo quản phù hợp đã được test. Bánh vẫn đảm bảo chất lượng trong thời gian ghi trên nhãn khi bảo quản đúng hướng dẫn, nên anh/chị hoàn toàn yên tâm sử dụng ạ.","Dạ bánh nhà em có sử dụng một lượng nhỏ chất bảo quản tự nhiên. Hạn sử dụng bên em được xác định dựa trên công thức sản phẩm và điều kiện bảo quản phù hợp đã được test. Bánh vẫn đảm bảo chất lượng trong thời gian ghi trên nhãn khi bảo quản đúng hướng dẫn, nên anh/chị hoàn toàn yên tâm sử dụng ạ.","Dạ bánh nhà em không sử dụng chất bảo quản. Hạn sử dụng bên em được xác định dựa trên kết quả kiểm nghiệm thực phẩm của cơ quan chức năng. Bánh vẫn đảm bảo chất lượng trong thời gian ghi trên nhãn khi bảo quản đúng hướng dẫn, nên anh/chị hoàn toàn yên tâm sử dụng ạ.","Dạ bánh nhà em không sử dụng chất bảo quản. Hạn sử dụng bên em được xác định dựa trên công thức sản phẩm và điều kiện bảo quản phù hợp đã được test. Tuy nhiên anh/chị nên sử dụng sớm để đảm bảo hương vị tươi ngon nhất ạ."],ans:0},
-      {q:"Mẫu câu trả lời đúng khi: \"Ruốc heo, ruốc gà tự làm hay nhập?\"",opts:["Dạ ruốc bên em được tự làm tại bếp của cửa hàng từ nguyên liệu tươi chọn lọc và được kiểm soát chất lượng trước khi đưa vào sản xuất ạ, nên anh/chị hoàn toàn yên tâm sử dụng ạ.","Dạ ruốc bên em được nhập từ nhà cung cấp đã có đầy đủ giấy tờ an toàn thực phẩm và được kiểm soát chất lượng trước khi đưa vào sản xuất ạ, nên anh/chị hoàn toàn yên tâm sử dụng ạ.","Dạ ruốc bên em được nhập từ nhà cung cấp uy tín trong nước và đã được cơ quan y tế kiểm định đầy đủ trước khi đưa vào sản xuất ạ, nên anh/chị hoàn toàn yên tâm sử dụng ạ.","Dạ ruốc bên em được nhập từ nhà cung cấp đã có đầy đủ giấy tờ an toàn thực phẩm nhưng chưa qua kiểm soát chất lượng nội bộ, nên anh/chị hoàn toàn yên tâm sử dụng ạ."],ans:1},
-      {q:"Mẫu câu trả lời đúng khi: \"Khách hỏi sao ruốc muối ớt bé hơn mà đắt hơn?\"",opts:["Dạ giá sản phẩm phụ thuộc chủ yếu vào kích thước và trọng lượng sản phẩm ạ. Riêng dòng ruốc muối ớt sử dụng nguyên liệu và quy trình chế biến khác nên giá thành sẽ cao hơn một chút ạ.","Dạ giá sản phẩm không chỉ phụ thuộc vào kích thước mà còn phụ thuộc vào nguyên liệu, công thức chế biến và chi phí sản xuất của từng dòng bánh ạ. Riêng dòng ruốc muối ớt được nhập khẩu từ nước ngoài nên giá thành sẽ cao hơn một chút ạ.","Dạ giá sản phẩm không chỉ phụ thuộc vào kích thước mà còn phụ thuộc vào nguyên liệu, công thức chế biến và chi phí sản xuất của từng dòng bánh ạ. Riêng dòng ruốc muối ớt sử dụng nguyên liệu và quy trình chế biến khác nên giá thành sẽ cao hơn một chút ạ.","Dạ giá sản phẩm không chỉ phụ thuộc vào kích thước mà còn phụ thuộc vào nguyên liệu, công thức chế biến và chi phí sản xuất của từng dòng bánh ạ. Riêng dòng ruốc muối ớt có vị đặc biệt nên khách hàng ưa chuộng hơn, giá thành sẽ cao hơn một chút ạ."],ans:2},
-      {q:"Mẫu câu trả lời đúng khi: \"Khách hỏi cả một set 4 bánh này mà tận 380k á?\"",opts:["Dạ vâng set này gồm 4 vị bánh khác nhau, được nhập từ đối tác uy tín mỗi ngày và sử dụng nhiều loại nhân khác nhau nên giá sẽ cao hơn các dòng bánh thông thường một chút ạ.","Dạ vâng set này gồm 4 vị bánh khác nhau, được làm mới mỗi ngày từ nguyên liệu tươi và sử dụng nhiều loại nhân khác nhau nên giá sẽ cao hơn các dòng bánh thông thường một chút ạ.","Dạ vâng set này gồm 4 vị bánh khác nhau, được làm mới mỗi ngày từ nguyên liệu tươi và không sử dụng chất bảo quản nên giá sẽ cao hơn các dòng bánh thông thường một chút ạ.","Dạ vâng set này gồm 3 vị bánh khác nhau với kích thước lớn hơn, được làm mới mỗi ngày từ nguyên liệu tươi và sử dụng nhiều loại nhân khác nhau nên giá sẽ cao hơn các dòng bánh thông thường một chút ạ."],ans:1},
-      {q:"Mẫu câu trả lời đúng khi: \"Tại sao giá bánh sinh nhật nhà em lại cao hơn so với các tiệm khác?\"",opts:["Dạ bánh sinh nhật bên em sử dụng kem thực vật cao cấp thay vì kem whipping thông thường nên hương vị thơm ngon và tốt cho sức khỏe hơn. Ngoài ra phần trang trí sử dụng hoa quả tươi theo mùa thay vì mứt hoặc topping chế biến sẵn. Bên em ưu tiên nguyên liệu chất lượng cao để đảm bảo hương vị và trải nghiệm của khách hàng nên chi phí sản xuất sẽ cao hơn một chút ạ. ➤ Nếu khách vẫn phân vân: Dạ em hiểu ạ. Mỗi khách hàng sẽ có nhu cầu và ngân sách khác nhau. Anh/chị cho em xin ngân sách dự kiến của mình để em tư vấn sản phẩm phù hợp ạ.","Dạ bánh sinh nhật bên em sử dụng kem whipping thay vì kem thực vật thông thường nên hương vị thơm ngon và tốt cho sức khỏe hơn. Ngoài ra phần trang trí sử dụng hoa khô nhập khẩu thay vì mứt hoặc topping chế biến sẵn. Bên em ưu tiên nguyên liệu chất lượng cao để đảm bảo hương vị và trải nghiệm của khách hàng nên chi phí sản xuất sẽ cao hơn một chút ạ. ➤ Nếu khách vẫn phân vân: Dạ em hiểu ạ. Mỗi khách hàng sẽ có nhu cầu và ngân sách khác nhau. Anh/chị cho em xin ngân sách dự kiến của mình để em tư vấn sản phẩm phù hợp ạ.","Dạ bánh sinh nhật bên em sử dụng kem whipping thay vì kem thực vật thông thường nên hương vị thơm ngon và tốt cho sức khỏe hơn. Ngoài ra phần trang trí sử dụng hoa quả tươi theo mùa thay vì mứt hoặc topping chế biến sẵn. Bên em ưu tiên nguyên liệu chất lượng cao để đảm bảo hương vị và trải nghiệm của khách hàng nên chi phí sản xuất sẽ cao hơn một chút ạ. ➤ Nếu khách vẫn phân vân: Dạ em hiểu ạ. Anh/chị có thể tham khảo thêm menu của chúng em để chọn sản phẩm phù hợp với ngân sách ạ.","Dạ bánh sinh nhật bên em sử dụng kem whipping thay vì kem thực vật thông thường nên hương vị thơm ngon và tốt cho sức khỏe hơn. Ngoài ra phần trang trí sử dụng hoa quả tươi theo mùa thay vì mứt hoặc topping chế biến sẵn. Bên em ưu tiên nguyên liệu chất lượng cao để đảm bảo hương vị và trải nghiệm của khách hàng nên chi phí sản xuất sẽ cao hơn một chút ạ. ➤ Nếu khách vẫn phân vân: Dạ em hiểu ạ. Mỗi khách hàng sẽ có nhu cầu và ngân sách khác nhau. Anh/chị cho em xin ngân sách dự kiến của mình để em tư vấn sản phẩm phù hợp ạ."],ans:3},
-      {q:"Mẫu câu trả lời đúng khi: \"Khách đặt ship nhưng đơn hàng chưa được giao đúng thời gian đã hẹn\"?",opts:["Em chào anh/chị. Em rất xin lỗi vì đơn hàng của anh/chị đang gặp sự cố trong quá trình xử lý và hiện tại chưa được giao đúng thời gian đã hẹn. Bên em đang ưu tiên xử lý ngay và dự kiến giao đến anh/chị vào lúc ... ạ. Em xin phép gửi anh/chị (voucher / ưu đãi / miễn phí ship) cho đơn hàng lần này. Một lần nữa tiệm xin lỗi chị vì trải nghiệm chưa hài lòng ạ.","Em chào anh/chị. Em rất xin lỗi vì đơn hàng của anh/chị đang gặp sự cố trong quá trình xử lý và hiện tại chưa được giao đúng thời gian đã hẹn. Bên em đang ưu tiên xử lý ngay và dự kiến giao đến anh/chị vào lúc ... ạ. Một lần nữa tiệm xin lỗi chị vì trải nghiệm chưa hài lòng ạ.","Em chào anh/chị. Em rất xin lỗi vì đơn hàng của anh/chị đang gặp sự cố về thời tiết và hiện tại chưa được giao đúng thời gian đã hẹn. Bên em đang ưu tiên xử lý ngay và dự kiến giao đến anh/chị vào lúc ... ạ. Em xin phép gửi anh/chị (voucher / ưu đãi / miễn phí ship) cho đơn hàng lần này. Một lần nữa tiệm xin lỗi chị vì trải nghiệm chưa hài lòng ạ.","Em chào anh/chị. Em rất xin lỗi vì đơn hàng của anh/chị đang gặp sự cố trong quá trình xử lý và hiện tại chưa được giao đúng thời gian đã hẹn. Bên em sẽ cố gắng giao sớm nhất có thể ạ. Em xin phép gửi anh/chị (voucher / ưu đãi / miễn phí ship) cho đơn hàng lần này. Một lần nữa tiệm xin lỗi chị vì trải nghiệm chưa hài lòng ạ."],ans:0},
-      {q:"Mẫu câu trả lời đúng khi: \"Khách hỏi mua một loại bánh nhưng cửa hàng đang hết hàng\"?",opts:["Dạ em xin lỗi anh/chị, hiện tại bánh [tên bánh] đang tạm hết hàng. Anh/chị vui lòng quay lại vào ngày hôm sau để mua ạ. ➤ Nếu khách vẫn muốn đặt: Bánh sẽ có vào lúc ... ngày ... Em xin lại thông tin của anh/chị để em báo lại ngay khi bánh có hàng ạ.","Dạ em xin lỗi anh/chị, hiện tại bánh [tên bánh] đang tạm hết hàng. Bên em có sản phẩm [tên sản phẩm tương tự + mô tả] anh/chị muốn lấy sang bánh này không ạ? ➤ Nếu khách vẫn không lấy: Em sẽ liên hệ lại với anh/chị khi bánh có hàng trong vòng 24 giờ ạ.","Dạ em xin lỗi anh/chị, hiện tại bánh [tên bánh] đang tạm hết hàng. Bên em có sản phẩm [tên sản phẩm tương tự + mô tả] anh/chị muốn lấy sang bánh này không ạ? ➤ Nếu khách vẫn không lấy: Bánh sẽ có vào lúc ... ngày ... Anh/chị có thể theo dõi fanpage để cập nhật thông tin mới nhất ạ.","Dạ em xin lỗi anh/chị, hiện tại bánh [tên bánh] đang tạm hết hàng. Bên em có sản phẩm [tên sản phẩm tương tự + mô tả] anh/chị muốn lấy sang bánh này không ạ? ➤ Nếu khách vẫn không lấy: Bánh sẽ có vào lúc ... ngày ... Em xin lại thông tin của anh/chị để em báo lại ngay khi bánh có hàng ạ."],ans:3},
-      {q:"Lưu ý quan trọng: TẤT CẢ CÁC TRƯỜNG HỢP KHÔNG TỰ GIẢI QUYẾT ĐƯỢC thì nhân viên cần làm gì?",opts:["Dạ em xin lỗi anh/chị ạ. Em xin phép ghi nhận lại phản hồi của anh/chị. Anh/chị cho em xin lại thông tin liên hệ, em sẽ chuyển tới Quản lý cửa hàng để kiểm tra và phản hồi lại anh/chị trong thời gian sớm nhất ạ.","Dạ em xin lỗi anh/chị ạ. Em xin phép ghi nhận lại phản hồi của anh/chị. Anh/chị cho em xin lại thông tin liên hệ, em sẽ chuyển tới Bộ phận chăm sóc khách hàng để kiểm tra và phản hồi lại anh/chị trong thời gian sớm nhất ạ.","Dạ em xin lỗi anh/chị ạ. Em xin phép ghi nhận lại phản hồi của anh/chị và tự xử lý ngay lập tức để không làm mất thời gian của anh/chị ạ.","Dạ em xin lỗi anh/chị ạ. Em xin phép ghi nhận lại phản hồi của anh/chị. Anh/chị cho em xin lại thông tin liên hệ, em sẽ phản hồi lại anh/chị sau khi tham khảo ý kiến đồng nghiệp ạ."],ans:0}
-    ]
-  }
+const PDF_DRIVE = {
+  1:"1utj-rOWAbjCMRWRelnxV42VuzKep1G37",
+  2:"1KWA6619O49hER3qg8ziEVULH0P82JnYd",
+  3:"1TAG97ENkNWtp_nXFBpQZ00aPHY3iQF5P",
+  4:"1Bq8Com4Cd1QjGii-IGFFcG4tGm1vFSxt"
+};
+const PDF_NAMES = {1:"Tiêu chuẩn dịch vụ",2:"Tiêu chuẩn trưng bày",3:"Tiêu chuẩn sản phẩm",4:"Tình huống & cách xử lý"};
+const SEC_TAGS = ["s1","s2","s3"];
+const SEC_NAMES = ["Tiêu chuẩn dịch vụ","Tiêu chuẩn sản phẩm","Tình huống & xử lý"];
+
+// ── FALLBACK QUESTIONS ────────────────────────────────────────
+const FALLBACK = [
+  {name:"Tiêu chuẩn dịch vụ",questions:[
+    {question:"Quản lý định nghĩa thế nào là một 'Nhân viên Tối thiểu' và một 'Nhân viên Premium' tại cửa hàng?",opts:["Nhân viên Tối thiểu chỉ làm đúng trách nhiệm, chào câu mẫu, báo giá, đóng gói xong là hết. Nhân viên Premium làm việc bằng sự quan sát, nhớ tên khách, chủ động hỏi nhu cầu, biết kể chuyện sản phẩm và chào tiễn cá nhân hóa.","Nhân viên Tối thiểu là người mới vào chưa có kinh nghiệm, còn Nhân viên Premium là người đã làm việc trên 1 năm và được tăng lương theo hiệu suất bán hàng.","Nhân viên Tối thiểu chỉ làm đúng trách nhiệm, còn Nhân viên Premium là người biết bán thêm sản phẩm và đạt doanh số cao nhất ca.","Nhân viên Tối thiểu cần được đào tạo thêm, còn Nhân viên Premium là người đã hoàn thành tất cả các bài kiểm tra nội bộ của cửa hàng."],ans:0},
+    {question:"Khi khách hàng chấp nhận trả một mức giá cao để mua bánh tại The Cake Lab, thực tế họ đang muốn mua điều gì ngoài một món bánh ngọt?",opts:["Họ mua chất lượng nguyên liệu cao cấp và kỹ thuật làm bánh chuyên nghiệp hơn so với các tiệm bánh thông thường khác.","Họ mua giải pháp quà tặng và cảm xúc: để thể hiện sự trân trọng trong những dịp đặc biệt như sinh nhật, lễ kỷ niệm, hoặc làm quà đi gặp đối tác.","Họ mua thương hiệu nổi tiếng và sự đảm bảo về vệ sinh an toàn thực phẩm được kiểm định chặt chẽ.","Họ mua sự tiện lợi khi đặt hàng online nhanh chóng và được giao bánh đúng giờ theo yêu cầu."],ans:1},
+    {question:"Tại sao điểm chạm đầu tiên (Chào đón trong 5 giây) lại được coi là khoảnh khắc sống còn khi khách bước vào tiệm?",opts:["Vì điểm chạm đầu tiên giúp nhân viên nhận biết ngay loại khách hàng để phân loại và đưa ra mức giá phù hợp.","Vì nếu không chào trong 5 giây, khách sẽ tự chọn bánh mà không cần tư vấn và nhân viên sẽ mất cơ hội upsell.","Vì điểm chạm đầu tiên này quyết định đến 80% ấn tượng ban đầu của khách hàng đối với dịch vụ của cửa hàng.","Vì điểm chạm đầu tiên quyết định đến 50% doanh thu ca làm việc và ảnh hưởng đến KPI của toàn đội."],ans:2},
+    {question:"Hành động vật lý nào bắt buộc phải thực hiện song song với câu chào khi có khách bước vào cửa hàng?",opts:["Song song với câu chào, nhân viên phải nhanh chóng đến quầy lấy menu và đưa tận tay cho khách ngay khi họ vừa vào cửa.","Song song với câu chào, nhân viên phải dừng mọi việc đang làm và tiến lại gần hỏi ngay khách cần mua loại bánh nào.","Song song với câu chào, nhân viên phải giới thiệu ngay sản phẩm mới nhất của tiệm để tạo ấn tượng từ đầu.","Song song với quy tắc 5 giây (Mắt nhìn – Cười – Chào), nhân viên bắt buộc phải kết hợp với hành động chủ động mở cửa cho khách."],ans:3},
+    {question:"Mục đích cốt lõi của việc chủ động đặt câu hỏi khai thác nhu cầu khi khách đứng trước tủ bánh là gì?",opts:["Để nhanh chóng thu hẹp các lựa chọn phù hợp nhất cho khách, giúp khách không bị hoang mang trước quá nhiều loại bánh và tiết kiệm thời gian chọn lựa.","Để khách hàng cảm thấy được quan tâm và ở lại tiệm lâu hơn, từ đó tăng khả năng họ mua thêm sản phẩm phụ.","Để nhân viên nắm được ngân sách của khách hàng và chỉ giới thiệu những loại bánh trong tầm giá phù hợp.","Để thu thập thông tin khách hàng phục vụ cho chương trình khách hàng thân thiết và các chiến dịch marketing sau này."],ans:0},
+    {question:"Sau khi khai thác xong dịp sử dụng và khẩu vị của khách, nhân viên nên đưa ra tối đa bao nhiêu gợi ý sản phẩm?",opts:["Nhân viên nên đưa ra đúng 3 gợi ý để khách có đủ lựa chọn so sánh về giá cả và hương vị trước khi quyết định.","Nhân viên chỉ cần đưa ra đúng 2 gợi ý tốt nhất và phù hợp nhất dựa trên câu trả lời của khách để họ dễ dàng đưa ra quyết định.","Nhân viên nên giới thiệu tất cả các sản phẩm phù hợp với dịp sử dụng để khách thấy sự đa dạng của cửa hàng.","Nhân viên chỉ nên đưa ra đúng 1 gợi ý tốt nhất để tránh khách phân vân và giúp quá trình chốt đơn diễn ra nhanh hơn."],ans:1},
+    {question:"Điền vào chỗ trống theo tư duy Premium: 'Khách hàng không mua bánh, họ mua __________ mà các bạn vẽ ra trong tâm trí họ.'",opts:["'Sự sang trọng'. Nhân viên Premium phải dùng ngôn ngữ thể hiện đẳng cấp thương hiệu và sự khác biệt so với các tiệm bánh thông thường.","'Cảm giác hạnh phúc'. Nhân viên Premium phải tập trung vào cảm xúc tích cực mà món bánh mang lại cho người nhận thay vì mô tả vị bánh.","'Hình ảnh vị ngon'. Nhân viên Premium phải dùng từ ngữ giàu tính hình ảnh, mô tả kết cấu, nguyên liệu để kích thích vị giác của khách thay vì chỉ khen bánh ngon, ngọt chung chung.","'Trải nghiệm cao cấp'. Nhân viên Premium phải nhấn mạnh vào quy trình làm bánh tỉ mỉ và nguồn gốc nguyên liệu nhập khẩu chất lượng cao."],ans:2},
+    {question:"Tại sao việc ép khách đi 2 người mua một chiếc bánh sinh nhật size lớn lại bị coi là sai lầm trong nghệ thuật Upsell?",opts:["Vì hành động này vi phạm quy định về định mức sản phẩm, mỗi khách chỉ được mua tối đa 1 size bánh theo quy định nội bộ của tiệm.","Vì hành động này làm giảm số lượng đơn hàng trong ngày và ảnh hưởng đến chỉ tiêu doanh thu theo đầu hóa đơn của cửa hàng.","Vì hành động này làm khách cảm thấy bị phán xét về số người đi cùng, ảnh hưởng đến sự riêng tư và quyết định mua hàng.","Vì hành động này xuất phát từ việc 'nhìn vào túi tiền của khách' (cố tình tăng doanh thu) chứ không nhìn vào lợi ích thực tế của họ, khiến trải nghiệm dịch vụ bị giảm sút."],ans:3},
+    {question:"Hãy đưa ra lời thoại mẫu để gợi ý (Upsell) một sản phẩm đi kèm khi khách hàng chọn mua bánh mì gối?",opts:["'Dạ, với dòng bánh gối này, em gợi ý mình dùng thêm một hộp sốt cheese dẻo hoặc bơ caramel sử dụng cùng sẽ rất hợp và ngon hơn đấy ạ!'","'Dạ, nếu anh/chị mua thêm một ổ bánh mì gối nữa thì em có thể áp dụng ưu đãi mua 2 tặng 1 cho anh/chị ạ!'","'Dạ, bánh mì gối bên em hôm nay vừa ra lò, anh/chị có muốn thử thêm một ổ nhỏ dùng thử tại chỗ không ạ?'","'Dạ, với bánh mì gối này anh/chị có muốn nâng lên size lớn hơn không, chỉ thêm 10k thôi mà được nhiều hơn rất nhiều ạ?'"],ans:0},
+    {question:"Bạn khuyên khách hàng điều gì khi họ vừa chọn xong một mẫu bánh ngọt tại quầy để thực hiện kỹ thuật Upsell chéo?",opts:["Chủ động gợi ý khách hàng mua thêm một chiếc bánh tương tự để tặng người thân hoặc đồng nghiệp nhân dịp đặc biệt gần đây.","Chủ động gợi ý tư vấn thêm cho khách các dòng đồ uống phù hợp với hương vị của chiếc bánh ngọt mà họ vừa lựa chọn.","Chủ động gợi ý khách hàng nâng cấp lên size lớn hơn của chiếc bánh vừa chọn để tiết kiệm chi phí trên mỗi phần ăn.","Chủ động gợi ý khách hàng đăng ký thẻ thành viên để tích điểm và nhận ưu đãi cho những lần mua bánh tiếp theo."],ans:1},
+    {question:"Điền vào chỗ trống nguyên tắc tối cao tại The Cake Lab: 'Khách hàng luôn đúng về mặt __________.'",opts:["'Quyết định'. Mọi lựa chọn của khách hàng đều cần được tôn trọng tuyệt đối, nhân viên không được can thiệp hay thay đổi ý kiến của họ.","'Yêu cầu'. Khách hàng luôn có quyền đưa ra yêu cầu đặc biệt và nhân viên phải cố gắng đáp ứng tối đa dù vượt ngoài quy định.","'Cảm xúc'. Khi có sự cố, cảm xúc tiêu cực của khách là có thật, nhân viên không được tranh luận đúng sai mà phải xoa dịu cảm xúc đó trước.","'Nhận xét'. Mọi phản hồi từ khách hàng đều phải được ghi nhận và chuyển ngay lên ban quản lý để cải thiện chất lượng dịch vụ."],ans:2},
+    {question:"Theo quy trình 5 bước xử lý khiếu nại, sau khi đã 'Tiếp nhận' và 'Xin lỗi' khách hàng thành công, 3 bước tiếp theo cần làm là gì?",opts:["Trình tự 3 bước tiếp theo là: Giải thích nguyên nhân → Đề xuất phương án bồi thường → Ghi nhận vào sổ khiếu nại của cửa hàng.","Trình tự 3 bước tiếp theo là: Liên hệ quản lý → Chờ phê duyệt phương án xử lý → Thực hiện bồi thường theo hướng dẫn của cấp trên.","Trình tự 3 bước tiếp theo là: Kiểm tra lại sản phẩm → Xác định lỗi thuộc bên nào → Đề xuất giải pháp phù hợp với từng trường hợp.","Trình tự 3 bước tiếp theo lần lượt là: Giải quyết (đổi bánh/hoàn tiền) → Xác nhận (kiểm tra lại sự hài lòng của khách) → Báo cáo (ghi nhận sự cố cho quản lý/hệ thống)."],ans:3},
+    {question:"Nếu khách hàng phàn nàn rằng bánh bị hỏng do bên vận chuyển (shipper), tại sao nhân viên vẫn không được giải thích lý do này với khách ngay từ đầu?",opts:["Vì tại thời điểm khách đang giận, mọi lời giải thích (đổ lỗi cho bếp hay shipper) đều bị nghe thành 'tiệm đang bao biện và đùn đẩy trách nhiệm', khiến khách tức giận hơn.","Vì đây là thông tin nội bộ, nhân viên không được phép chia sẻ thông tin về đối tác vận chuyển với khách hàng theo quy định bảo mật.","Vì nhân viên chưa xác minh được thông tin chính xác, giải thích sai có thể tạo ra mâu thuẫn pháp lý giữa cửa hàng và đơn vị vận chuyển.","Vì việc đề cập đến shipper sẽ khiến khách hàng liên hệ trực tiếp với bên vận chuyển, làm mất đi cơ hội cửa hàng tự xử lý khiếu nại."],ans:0},
+    {question:"Thời điểm đóng gói và trao bánh bằng hai tay gửi gắm lời chúc gì ẩn sau hành động đó?",opts:["Gửi gắm thông điệp 'Chúng em cam kết chất lượng sản phẩm đến tay anh/chị hoàn toàn nguyên vẹn và đúng như đã đặt hàng.'","Gửi gắm lời chúc 'Chúc anh/chị có một bữa tiệc thật trọn vẹn', đồng thời thể hiện sự biết ơn vì khách hàng đã tin tưởng lựa chọn sản phẩm của tiệm.","Gửi gắm lời nhắc 'Anh/chị nhớ bảo quản bánh ở nhiệt độ phòng và dùng trong vòng 24 giờ để giữ đúng hương vị nhé!'","Gửi gắm thông điệp 'Chúng em trân trọng và biết ơn vì anh/chị đã chọn The Cake Lab trong dịp đặc biệt của mình.'"],ans:1},
+    {question:"Trong lời chào tiễn cá nhân hóa, ngoài việc chúc mừng bữa tiệc của khách, nhân viên Premium cần khéo léo xin thêm điều gì cho lần mua hàng sau?",opts:["Nhân viên cần khéo léo xin số điện thoại của khách để có thể liên hệ thông báo về các chương trình khuyến mãi và sản phẩm mới.","Nhân viên cần khéo léo mời khách tham gia chụp ảnh cùng sản phẩm để đăng lên trang mạng xã hội của cửa hàng.","Nhân viên cần khéo léo xin chút phản hồi (feedback) của khách về vị bánh sau khi họ tổ chức tiệc xong để thể hiện sự quan tâm chu đáo.","Nhân viên cần khéo léo nhắc khách nhớ đặt hàng sớm cho dịp tiếp theo vì cửa hàng thường xuyên hết hàng vào cuối tuần."],ans:2}
+  ]},
+  {name:"Tiêu chuẩn sản phẩm",questions:[
+    {question:"Whipping cream tại The Cake Lab được làm từ gì?",opts:["Kem thực vật cao cấp không cholesterol","Hỗn hợp sữa bò và kem thực vật","Sữa bò pha trộn với kem non-dairy","100% sữa bò nguyên chất, không pha trộn kem top"],ans:3},
+    {question:"Whipping cream của The Cake Lab giúp bánh giảm được bao nhiêu % đường so với công thức thông thường?",opts:["Giảm 30 - 50% đường","Giảm 60 - 70% đường","Giảm 5 - 10% đường","Giảm 10 - 20% đường"],ans:0},
+    {question:"Đâu là điểm mạnh của sản phẩm The Cake Lab?",opts:["Sản xuất công nghiệp, giá thành cạnh tranh và hạn sử dụng dài","Nhập khẩu nguyên liệu từ nước ngoài, không dùng hoa quả tươi","Sử dụng chất bảo quản để kéo dài hạn sử dụng và giá thành rẻ","Ít ngọt, giảm đường, không chất bảo quản và làm thủ công hoàn toàn"],ans:3},
+    {question:"Khách hàng muốn dùng đường ăn kiêng trong bánh, nhân viên cần xử lý như thế nào?",opts:["Từ chối vì The Cake Lab không cung cấp dịch vụ này","Tư vấn khách đặt trước vì có thể thay thế bằng đường ăn kiêng (BSN)","Chấp nhận đơn ngay mà không cần báo trước","Đề xuất khách mua loại bánh khác không có đường"],ans:1},
+    {question:"Tại sao bánh kem của The Cake Lab có hạn sử dụng ngắn?",opts:["Vì quy trình sản xuất chưa được tối ưu hóa","Vì không sử dụng chất bảo quản, đảm bảo an toàn thực phẩm","Vì nguyên liệu nhập khẩu không đảm bảo chất lượng lâu dài","Vì bánh được làm từ trái cây nhân tạo dễ hỏng"],ans:1},
+    {question:"Khi khách hỏi tại sao bánh The Cake Lab giá cao hơn các nơi khác, nhân viên nên trả lời như thế nào?",opts:["Thừa nhận giá cao và đề xuất khách tìm nơi khác phù hợp hơn","Cho biết giá cao do chi phí mặt bằng và nhân công tại Hà Nội","Giải thích do nguyên liệu cao cấp (whipping cream, hoa quả tươi), không pha trộn, không chất bảo quản, làm thủ công","Nói rằng giá cao vì thương hiệu nổi tiếng và được nhiều người biết đến"],ans:2},
+    {question:"Bánh BSN Xoài Cheese 14 (mẫu Dome) có kết cấu bên trong gồm những gì?",opts:["3 lớp cốt cacao, kem cheese và xoài sấy đan xen","3 lớp cốt bông lan, kem cheese và xoài tươi đan xen","3 lớp cốt vani, kem whipping và xoài tươi đan xen","3 lớp cốt bông lan, kem matcha và xoài tươi đan xen"],ans:1},
+    {question:"Bánh BSN Tiramisu 14 (mẫu nơ) được thấm bạt bằng gì?",opts:["Espresso coffee và rượu Rum","Espresso coffee và sữa tươi","Trà đen và siro đường","Cà phê đen và siro caramel"],ans:0},
+    {question:"Bánh BSN Matcha Dâu 14 có lớp kem bên ngoài là gì?",opts:["Kem whipping trắng","Kem cheese","Kem matcha","Kem phúc bồn tử"],ans:2},
+    {question:"Bánh Minicake Triple Chocolate có kết cấu bao nhiêu lớp?",opts:["4 lớp, gồm bạt choco và socola tươi đan xen","3 lớp, gồm bạt choco và kem chocolate đan xen","2 lớp, gồm bạt choco và ganache chocolate","5 lớp, gồm bạt choco, kem và socola đan xen"],ans:0},
+    {question:"Bánh Keto Brownie của The Cake Lab được tạo ngọt bằng gì thay cho đường tinh luyện?",opts:["Siro agave","Đường cỏ ngọt (Stevia)","Isomalt","Mật ong nguyên chất"],ans:2},
+    {question:"Bánh Tart Mochi Sầu gồm những thành phần chính nào?",opts:["Vỏ tart giòn, mochi dẻo, kem cheese và sầu đông lạnh","Vỏ tart giòn, pudding gạo nếp và sầu tươi","Vỏ tart giòn, mochi dẻo, kem whipping mascarpone và sầu tươi","Vỏ tart giòn, mochi dẻo, kem custard và xoài tươi"],ans:2},
+    {question:"Bánh mì gối Hạt Nảy Mầm được bán như thế nào?",opts:["1 túi gồm 4 lát bánh, lát hình tròn, giòn nhẹ","1 hộp gồm 3 lát bánh, lát hình vòm, mềm mịn","1 túi gồm 6 lát bánh, lát hình vuông, mềm có độ đàn hồi","1 túi gồm 5 lát bánh, lát hình vòm, mềm có độ đàn hồi"],ans:3},
+    {question:"Sốt Cheese Dẻo 120G của The Cake Lab có kết cấu và cách dùng như thế nào?",opts:["Kết cấu đặc dẻo, ngậy béo, dùng chấm ăn lạnh hoặc phết bánh mì","Kết cấu lỏng nhẹ, dùng để rưới lên bánh hoặc pha đồ uống","Kết cấu cứng, dùng để trang trí bánh kem","Kết cấu mềm mịn, chỉ dùng để phết bánh mì nướng"],ans:0},
+    {question:"Bánh Cookie Hạnh Nhân Dừa 150G có đặc điểm ngoại hình như thế nào?",opts:["Bánh hình chữ nhật mỏng giòn, mặt phủ hạnh nhân lát","Bánh tròn giòn nhẹ, mặt phủ hạnh nhân lát, nướng vàng nâu","Bánh hình hoa tròn, mặt phủ dừa sợi, nướng vàng nhạt","Bánh tròn mềm ẩm, mặt phủ hạnh nhân lát và dừa nạo"],ans:1}
+  ]},
+  {name:"Tình huống & xử lý",questions:[
+    {question:"5 bước trong quy trình xử lý khiếu nại là gì?",opts:["Lắng nghe, xin lỗi, tìm hiểu, giải quyết, báo cáo","Tiếp nhận, cảm ơn, tìm hiểu, đề xuất, kết thúc","Tiếp nhận, xin lỗi, giải thích, đề xuất, kết thúc","Tiếp nhận, xin lỗi, tìm hiểu, đề xuất, theo dõi"],ans:3},
+    {question:"Nội dung của bước \"Lắng nghe\" (Tiếp nhận) là gì?",opts:["Lắng nghe ý kiến phản hồi của khách. Ghi nhận số điện thoại khách và thời gian mua hàng.","Lắng nghe toàn bộ phản ánh của khách. Ghi nhận đầy đủ thông tin đơn hàng, tên khách và nội dung vấn đề.","Lắng nghe một phần phản ánh của khách. Ghi nhận đầy đủ thông tin đơn hàng và nội dung vấn đề.","Ngắt lời khách khi cần thiết. Ghi nhận thông tin đơn hàng, tên khách và nội dung vấn đề."],ans:1},
+    {question:"Nội dung của bước \"Xin lỗi\" là gì?",opts:["Thể hiện sự quan tâm và giải thích nguyên nhân ngay lập tức, tạo nền tảng cho đối thoại tích cực.","Thể hiện sự quan tâm và xin lỗi chân thành ngay lập tức, tạo nền tảng cho đối thoại tích cực.","Thể hiện sự quan tâm và xin lỗi chân thành sau khi tìm hiểu rõ nguyên nhân, tạo nền tảng cho đối thoại tích cực.","Thể hiện sự đồng cảm và xin lỗi ngắn gọn, chuyển nhanh sang bước tìm hiểu vấn đề."],ans:1},
+    {question:"Mẫu câu hội thoại chuẩn của mục \"Mở đầu\" là gì?",opts:["Em rất tiếc vì sự cố xảy ra với anh/chị, em sẽ hỗ trợ giải quyết ngay ạ.","Em xin lỗi anh/chị ạ. Anh/chị vui lòng cho em biết vấn đề đang gặp phải là gì không ạ?","Em rất xin lỗi vì trải nghiệm chưa tốt của anh/chị trong lần mua hàng này ạ.","Dạ em chào anh/chị. Em rất mong được hỗ trợ anh/chị trong lần này ạ."],ans:2},
+    {question:"Mẫu câu hội thoại chuẩn của mục \"Cảm ơn phản hồi\" là gì?",opts:["Em rất vui vì anh/chị đã dành thời gian liên hệ để chúng em có cơ hội khắc phục sự cố ạ.","Em xin ghi nhận phản hồi của anh/chị và sẽ chuyển đến bộ phận liên quan để cải thiện ạ.","Em chân thành cảm ơn anh/chị đã phản hồi để chúng em có thể cải thiện tốt hơn trong thời gian tới ạ.","Em chân thành cảm ơn anh/chị đã tin tưởng và ủng hộ The Cake Lab trong thời gian qua ạ."],ans:2},
+    {question:"Mẫu câu trả lời đúng khi: \"Khách đặt bánh online nhưng nhân viên quên ghi nhận đơn\"?",opts:["Xin lỗi và ưu tiên xử lý, giảm giá 10%. Nếu khách không còn nhu cầu: hoàn tiền kèm voucher 10%.","Xin lỗi và ưu tiên xử lý. Nếu khách không còn nhu cầu: hoàn tiền kèm tặng thêm 1 phần bánh miễn phí.","Xin lỗi và ưu tiên xử lý, giảm giá 20%. Nếu khách không còn nhu cầu: hoàn tiền kèm voucher 20%.","Xin lỗi và ưu tiên xử lý, miễn phí ship. Nếu khách không còn nhu cầu: hoàn tiền kèm voucher 20%."],ans:2},
+    {question:"Mẫu câu trả lời đúng khi: \"Khách hỏi Kem whipping là kem gì vậy em?\"",opts:["Kem có nguồn gốc từ sữa bò, thơm béo tự nhiên, có thể điều chỉnh lượng đường. Bên em giảm 30–50% đường so với bánh thông thường, giúp bánh thanh nhẹ, dễ ăn và không bị ngấy.","Kem có nguồn gốc từ thực vật, thơm béo nhẹ, có thể điều chỉnh lượng đường. Bên em giảm 30–50% đường so với bánh thông thường, giúp bánh thanh nhẹ, dễ ăn và không bị ngấy.","Kem có nguồn gốc từ sữa bò, thơm béo tự nhiên, có thể điều chỉnh lượng đường. Bên em giảm 20–30% đường so với bánh thông thường, giúp bánh thanh nhẹ, dễ ăn và không bị ngấy.","Kem có nguồn gốc từ sữa bò, thơm béo tự nhiên nhưng lượng đường cố định không điều chỉnh được."],ans:0},
+    {question:"Mẫu câu trả lời đúng khi: \"Sao bánh bên em để date lâu thế? Có chất bảo quản không?\"",opts:["Bánh không sử dụng chất bảo quản. Hạn sử dụng được xác định dựa trên công thức sản phẩm và điều kiện bảo quản đã được test. Bánh vẫn đảm bảo chất lượng trong thời gian ghi trên nhãn khi bảo quản đúng hướng dẫn, anh/chị hoàn toàn yên tâm.","Bánh có sử dụng một lượng nhỏ chất bảo quản tự nhiên. Hạn sử dụng được xác định dựa trên công thức sản phẩm đã được test. Bánh đảm bảo chất lượng trong thời gian ghi trên nhãn, anh/chị hoàn toàn yên tâm.","Bánh không sử dụng chất bảo quản. Hạn sử dụng được xác định dựa trên kết quả kiểm nghiệm của cơ quan chức năng. Bánh đảm bảo chất lượng trong thời gian ghi trên nhãn, anh/chị hoàn toàn yên tâm.","Bánh không sử dụng chất bảo quản. Hạn sử dụng được xác định dựa trên công thức sản phẩm đã được test. Tuy nhiên anh/chị nên sử dụng sớm để đảm bảo hương vị tươi ngon nhất."],ans:0},
+    {question:"Mẫu câu trả lời đúng khi: \"Ruốc heo, ruốc gà tự làm hay nhập?\"",opts:["Ruốc được tự làm tại bếp của cửa hàng từ nguyên liệu tươi chọn lọc và được kiểm soát chất lượng trước khi đưa vào sản xuất, anh/chị hoàn toàn yên tâm.","Ruốc được nhập từ nhà cung cấp đã có đầy đủ giấy tờ an toàn thực phẩm và được kiểm soát chất lượng trước khi đưa vào sản xuất, anh/chị hoàn toàn yên tâm.","Ruốc được nhập từ nhà cung cấp uy tín trong nước và đã được cơ quan y tế kiểm định đầy đủ trước khi đưa vào sản xuất, anh/chị hoàn toàn yên tâm.","Ruốc được nhập từ nhà cung cấp đã có đầy đủ giấy tờ an toàn thực phẩm nhưng chưa qua kiểm soát chất lượng nội bộ."],ans:1},
+    {question:"Mẫu câu trả lời đúng khi: \"Khách hỏi sao ruốc muối ớt bé hơn mà đắt hơn?\"",opts:["Giá sản phẩm phụ thuộc chủ yếu vào kích thước và trọng lượng. Riêng dòng ruốc muối ớt sử dụng nguyên liệu và quy trình chế biến khác nên giá thành cao hơn một chút.","Giá sản phẩm không chỉ phụ thuộc vào kích thước mà còn phụ thuộc vào nguyên liệu và chi phí sản xuất. Riêng dòng ruốc muối ớt được nhập khẩu từ nước ngoài nên giá thành cao hơn một chút.","Giá sản phẩm không chỉ phụ thuộc vào kích thước mà còn phụ thuộc vào nguyên liệu và chi phí sản xuất. Riêng dòng ruốc muối ớt sử dụng nguyên liệu và quy trình chế biến khác nên giá thành cao hơn một chút.","Giá sản phẩm không chỉ phụ thuộc vào kích thước mà còn phụ thuộc vào nguyên liệu và chi phí sản xuất. Riêng dòng ruốc muối ớt có vị đặc biệt nên khách hàng ưa chuộng hơn, giá thành cao hơn một chút."],ans:2},
+    {question:"Mẫu câu trả lời đúng khi: \"Khách hỏi cả một set 4 bánh này mà tận 380k á?\"",opts:["Set này gồm 4 vị bánh khác nhau, được nhập từ đối tác uy tín mỗi ngày và sử dụng nhiều loại nhân khác nhau nên giá sẽ cao hơn các dòng bánh thông thường một chút.","Set này gồm 4 vị bánh khác nhau, được làm mới mỗi ngày từ nguyên liệu tươi và sử dụng nhiều loại nhân khác nhau nên giá sẽ cao hơn các dòng bánh thông thường một chút.","Set này gồm 4 vị bánh khác nhau, được làm mới mỗi ngày từ nguyên liệu tươi và không sử dụng chất bảo quản nên giá sẽ cao hơn các dòng bánh thông thường một chút.","Set này gồm 3 vị bánh khác nhau với kích thước lớn hơn, được làm mới mỗi ngày từ nguyên liệu tươi nên giá sẽ cao hơn các dòng bánh thông thường một chút."],ans:1},
+    {question:"Mẫu câu trả lời đúng khi: \"Tại sao giá bánh sinh nhật nhà em lại cao hơn so với các tiệm khác?\"",opts:["Bánh sinh nhật bên em sử dụng kem thực vật cao cấp thay vì kem whipping thông thường, trang trí bằng hoa quả tươi theo mùa. Nếu khách vẫn phân vân: Anh/chị cho em xin ngân sách dự kiến để em tư vấn sản phẩm phù hợp ạ.","Bánh sinh nhật bên em sử dụng kem whipping thay vì kem thực vật thông thường, trang trí bằng hoa khô nhập khẩu. Nếu khách vẫn phân vân: Anh/chị cho em xin ngân sách dự kiến để em tư vấn sản phẩm phù hợp ạ.","Bánh sinh nhật bên em sử dụng kem whipping thay vì kem thực vật thông thường, trang trí bằng hoa quả tươi theo mùa. Nếu khách vẫn phân vân: Anh/chị có thể tham khảo thêm menu để chọn sản phẩm phù hợp với ngân sách ạ.","Bánh sinh nhật bên em sử dụng kem whipping thay vì kem thực vật thông thường, trang trí bằng hoa quả tươi theo mùa. Nếu khách vẫn phân vân: Anh/chị cho em xin ngân sách dự kiến để em tư vấn sản phẩm phù hợp ạ."],ans:3},
+    {question:"Mẫu câu trả lời đúng khi: \"Khách đặt ship nhưng đơn hàng chưa được giao đúng thời gian đã hẹn\"?",opts:["Xin lỗi vì đơn hàng gặp sự cố, đang ưu tiên xử lý và dự kiến giao vào lúc... Gửi anh/chị voucher/ưu đãi/miễn phí ship cho đơn hàng lần này. Một lần nữa tiệm xin lỗi vì trải nghiệm chưa hài lòng.","Xin lỗi vì đơn hàng gặp sự cố, đang ưu tiên xử lý và dự kiến giao vào lúc... Một lần nữa tiệm xin lỗi vì trải nghiệm chưa hài lòng.","Xin lỗi vì đơn hàng gặp sự cố về thời tiết, đang ưu tiên xử lý. Gửi anh/chị voucher/ưu đãi/miễn phí ship cho đơn hàng lần này. Một lần nữa tiệm xin lỗi vì trải nghiệm chưa hài lòng.","Xin lỗi vì đơn hàng gặp sự cố, sẽ cố gắng giao sớm nhất có thể. Gửi anh/chị voucher/ưu đãi/miễn phí ship cho đơn hàng lần này. Một lần nữa tiệm xin lỗi vì trải nghiệm chưa hài lòng."],ans:0},
+    {question:"Mẫu câu trả lời đúng khi: \"Khách hỏi mua một loại bánh nhưng cửa hàng đang hết hàng\"?",opts:["Xin lỗi, hiện tại bánh đang tạm hết hàng. Mời anh/chị quay lại vào ngày hôm sau. Nếu khách vẫn muốn đặt: Bánh sẽ có vào lúc... ngày... Em xin lại thông tin để báo lại khi có hàng.","Xin lỗi, hiện tại bánh đang tạm hết hàng. Bên em có sản phẩm tương tự, anh/chị muốn thử không? Nếu khách không lấy: Em sẽ liên hệ lại khi bánh có hàng trong vòng 24 giờ.","Xin lỗi, hiện tại bánh đang tạm hết hàng. Bên em có sản phẩm tương tự, anh/chị muốn thử không? Nếu khách không lấy: Bánh sẽ có vào lúc... ngày... Anh/chị theo dõi fanpage để cập nhật thông tin mới nhất.","Xin lỗi, hiện tại bánh đang tạm hết hàng. Bên em có sản phẩm tương tự, anh/chị muốn thử không? Nếu khách không lấy: Bánh sẽ có vào lúc... ngày... Em xin lại thông tin để báo lại ngay khi có hàng."],ans:3},
+    {question:"Lưu ý quan trọng: TẤT CẢ CÁC TRƯỜNG HỢP KHÔNG TỰ GIẢI QUYẾT ĐƯỢC thì nhân viên cần làm gì?",opts:["Xin lỗi và ghi nhận phản hồi. Xin lại thông tin liên hệ, chuyển tới Quản lý cửa hàng để kiểm tra và phản hồi lại anh/chị trong thời gian sớm nhất.","Xin lỗi và ghi nhận phản hồi. Xin lại thông tin liên hệ, chuyển tới Bộ phận chăm sóc khách hàng để kiểm tra và phản hồi lại anh/chị trong thời gian sớm nhất.","Xin lỗi và ghi nhận phản hồi, tự xử lý ngay lập tức để không làm mất thời gian của anh/chị.","Xin lỗi và ghi nhận phản hồi. Xin lại thông tin liên hệ, sẽ phản hồi lại anh/chị sau khi tham khảo ý kiến đồng nghiệp."],ans:0}
+  ]}
 ];
 
 // ── STATE ────────────────────────────────────────────────────
-let questions = [];
-let curQ = 0;
-let sectionScores = [0,0,0];
-let staffName = '', storeName = '';
+var questions = [], curQ = 0, secScores = [], staffName = '', storeName = '';
 
 // ── NAVIGATION ───────────────────────────────────────────────
 function showScreen(id) {
-  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-  document.querySelectorAll('.pdf-screen').forEach(s => s.classList.remove('active'));
-  const el = document.getElementById(id);
+  document.querySelectorAll('.screen').forEach(function(s){s.classList.remove('active')});
+  document.querySelectorAll('.pdf-screen').forEach(function(s){s.classList.remove('active')});
+  var el = document.getElementById(id);
   if(el) el.classList.add('active');
   document.getElementById('back-btn').classList.toggle('show', id !== 's-home');
   window.scrollTo(0,0);
 }
 
 function goHome() {
-  showScreen('s-home');
   document.getElementById('pdf-frame').src = '';
+  showScreen('s-home');
 }
 
 function openPDF(n) {
-  document.getElementById('pdf-title').textContent = PDF_NAMES[n];
-  document.getElementById('pdf-badge').textContent = 'Phần ' + n;
-  document.getElementById('pdf-frame').src = PDF_LINKS[n];
-  showScreen('s-pdf');
+  var a = document.createElement('a');
+  a.href = 'https://drive.google.com/file/d/' + PDF_DRIVE[n] + '/view';
+  a.target = '_blank';
+  a.rel = 'noopener noreferrer';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
 }
 
 function goTest() {
   showScreen('s-test');
-  document.getElementById('staff-section').style.display = 'block';
-  document.getElementById('loading-section').style.display = 'none';
-  document.getElementById('quiz-section').style.display = 'none';
-  document.getElementById('result-section').style.display = 'none';
+  document.getElementById('staff-sec').style.display = 'block';
+  document.getElementById('loading-sec').style.display = 'none';
+  document.getElementById('quiz-sec').style.display = 'none';
+  document.getElementById('result-sec').style.display = 'none';
 }
 
-// ── TEST LOGIC ───────────────────────────────────────────────
+// ── SHUFFLE ──────────────────────────────────────────────────
 function shuffle(arr) {
-  const a = [...arr];
-  for(let i = a.length-1; i>0; i--) {
-    const j = Math.floor(Math.random()*(i+1));
-    [a[i],a[j]] = [a[j],a[i]];
+  var a = arr.slice();
+  for(var i = a.length-1; i>0; i--) {
+    var j = Math.floor(Math.random()*(i+1));
+    var tmp = a[i]; a[i] = a[j]; a[j] = tmp;
   }
   return a;
 }
 
+// ── START TEST ───────────────────────────────────────────────
 function startTest() {
   staffName = document.getElementById('staff-name').value.trim();
-  const stEl = document.getElementById('store-sel');
-  storeName = stEl.options[stEl.selectedIndex]?.text || '';
-  const err = document.getElementById('err-msg');
+  var stEl = document.getElementById('store-sel');
+  storeName = stEl.options[stEl.selectedIndex] ? stEl.options[stEl.selectedIndex].text : '';
+  var err = document.getElementById('err-msg');
   if(!staffName || !stEl.value) { err.classList.add('show'); return; }
   err.classList.remove('show');
+  document.getElementById('staff-sec').style.display = 'none';
+  document.getElementById('loading-sec').style.display = 'block';
 
-  document.getElementById('staff-section').style.display = 'none';
-  document.getElementById('loading-section').style.display = 'block';
-
-  setTimeout(() => {
-    // Shuffle within each section, keep sections in order
-    questions = [];
-    SECTIONS.forEach((sec, si) => {
-      const shuffled = shuffle(sec.questions);
-      shuffled.forEach(q => questions.push({...q, sectionIdx: si, sectionName: sec.name, sectionTag: sec.tag}));
+  // Try to load from Sheet, fallback to local
+  fetch(SCRIPT_URL + '?action=getQuestions')
+    .then(function(r){ return r.json(); })
+    .then(function(data){
+      buildQuestions(data.sections && data.sections.length ? data.sections : FALLBACK);
+    })
+    .catch(function(){
+      buildQuestions(FALLBACK);
     });
-    sectionScores = [0,0,0];
-    curQ = 0;
-    document.getElementById('loading-section').style.display = 'none';
-    document.getElementById('quiz-section').style.display = 'block';
-    renderQuestion();
-  }, 800);
 }
 
-function renderQuestion() {
-  const q = questions[curQ];
-  const total = questions.length;
-  const pct = (curQ / total * 100);
-
-  document.getElementById('prog-fill').style.width = pct + '%';
-  document.getElementById('prog-count').textContent = (curQ+1) + ' / ' + total;
-  document.getElementById('prog-label').textContent = q.sectionName;
-
-  // Section indicators
-  [1,2,3].forEach(i => {
-    const si = document.getElementById('si-'+i);
-    si.className = 'si';
-    if(i-1 < q.sectionIdx) si.classList.add('done');
-    else if(i-1 === q.sectionIdx) si.classList.add('active');
+function buildQuestions(sections) {
+  questions = [];
+  secScores = new Array(sections.length).fill(0);
+  sections.forEach(function(sec, si) {
+    var shuffled = shuffle(sec.questions);
+    shuffled.forEach(function(q) {
+      questions.push({
+        question: q.question || q.q || '',
+        opts: q.opts || q.options || [],
+        ans: q.ans,
+        secIdx: si,
+        secName: sec.name,
+        secTag: SEC_TAGS[si] || 's1'
+      });
+    });
   });
+  curQ = 0;
+  document.getElementById('loading-sec').style.display = 'none';
+  document.getElementById('quiz-sec').style.display = 'block';
+  renderQuestion();
+}
 
-  const tag = document.getElementById('q-tag');
-  tag.textContent = q.sectionName;
-  tag.className = 'q-section-tag ' + q.sectionTag;
-  document.getElementById('q-number').textContent = 'Câu ' + (curQ+1);
+// ── RENDER QUESTION ──────────────────────────────────────────
+function renderQuestion() {
+  var q = questions[curQ];
+  var total = questions.length;
+
+  // Progress
+  document.getElementById('prog-fill').style.width = (curQ/total*100) + '%';
+  document.getElementById('prog-count').textContent = (curQ+1) + ' / ' + total;
+  document.getElementById('prog-label').textContent = q.secName;
+
+  // Section dots
+  for(var i=0; i<3; i++) {
+    var dot = document.getElementById('sd-'+i);
+    if(!dot) continue;
+    dot.className = 'sd' + (i < q.secIdx ? ' done' : i === q.secIdx ? ' active' : '');
+  }
+
+  // Question
+  var tag = document.getElementById('q-tag');
+  tag.textContent = q.secName;
+  tag.className = 'q-tag ' + q.secTag;
+  document.getElementById('q-num').textContent = 'Câu ' + (curQ+1);
   document.getElementById('q-text').textContent = q.question;
 
-  const opts = document.getElementById('options');
-  opts.innerHTML = '';
-  const letters = ['A','B','C','D'];
-  // Shuffle options while tracking correct answer
-  const indices = shuffle([0,1,2,3]);
-  const newCorrect = indices.indexOf(q.ans);
-  q._shuffledAns = newCorrect;
+  // Shuffle options
+  var indices = shuffle([0,1,2,3]);
+  var correctNew = indices.indexOf(q.ans);
 
-  indices.forEach((origIdx, i) => {
-    const btn = document.createElement('button');
+  // Store state on question object
+  q._correct = correctNew;
+  q._indices = indices;
+  q._selected = null;
+  q._done = false;
+
+  // Render options
+  var list = document.getElementById('opts-list');
+  list.innerHTML = '';
+  var letters = ['A','B','C','D'];
+  indices.forEach(function(origIdx, i) {
+    var btn = document.createElement('button');
     btn.className = 'opt';
-    btn.innerHTML = `<span class="opt-letter">${letters[i]}</span><span class="opt-text">${q.opts[origIdx]}</span>`;
-    btn.onclick = () => selectAnswer(i, btn, newCorrect, q.sectionIdx);
-    opts.appendChild(btn);
+    btn.type = 'button';
+    btn.innerHTML = '<span class="opt-letter">' + letters[i] + '</span><span class="opt-text">' + (q.opts[origIdx] || '') + '</span>';
+    (function(idx, b){
+      b.addEventListener('click', function(){
+        if(q._done) return;
+        // Deselect all
+        list.querySelectorAll('.opt').forEach(function(o){ o.classList.remove('selected'); });
+        // Select this
+        b.classList.add('selected');
+        q._selected = idx;
+        // Show confirm button
+        document.getElementById('confirm-btn').style.display = 'block';
+      });
+    })(i, btn);
+    list.appendChild(btn);
   });
 
-  const fb = document.getElementById('feedback');
-  fb.className = 'feedback';
-  fb.textContent = '';
+  // Reset feedback and buttons
+  document.getElementById('feedback').className = 'feedback';
+  document.getElementById('feedback').textContent = '';
+  document.getElementById('confirm-btn').style.display = 'none';
   document.getElementById('next-btn').className = 'next-btn';
 }
 
-function selectAnswer(idx, btn, correct, sectionIdx) {
-  const allOpts = document.querySelectorAll('.opt');
-  allOpts.forEach(b => b.disabled = true);
+// ── CONFIRM ANSWER ───────────────────────────────────────────
+function confirmAnswer() {
+  var q = questions[curQ];
+  if(q._selected === null || q._done) return;
+  q._done = true;
 
-  const fb = document.getElementById('feedback');
-  if(idx === correct) {
-    btn.classList.add('correct');
+  var allOpts = document.getElementById('opts-list').querySelectorAll('.opt');
+  allOpts.forEach(function(b){ b.disabled = true; b.classList.remove('selected'); });
+  document.getElementById('confirm-btn').style.display = 'none';
+
+  var fb = document.getElementById('feedback');
+  if(q._selected === q._correct) {
+    allOpts[q._selected].classList.add('correct');
     fb.className = 'feedback correct show';
-    fb.innerHTML = '✓ Chính xác!';
-    sectionScores[sectionIdx]++;
+    fb.textContent = '✓ Chính xác!';
+    secScores[q.secIdx]++;
   } else {
-    btn.classList.add('wrong');
-    allOpts[correct].classList.add('correct');
+    allOpts[q._selected].classList.add('wrong');
+    allOpts[q._correct].classList.add('correct');
     fb.className = 'feedback wrong show';
-    fb.innerHTML = '✗ Chưa đúng. Đáp án đúng đã được đánh dấu màu xanh.';
+    fb.textContent = '✗ Chưa đúng. Đáp án đúng đã được đánh dấu màu xanh.';
   }
-  document.getElementById('next-btn').className = 'next-btn show';
 
-  const isLast = curQ === questions.length - 1;
-  document.getElementById('next-btn').textContent = isLast ? 'Xem kết quả →' : 'Câu tiếp theo →';
+  var nb = document.getElementById('next-btn');
+  nb.className = 'next-btn show';
+  nb.textContent = (curQ === questions.length-1) ? 'Xem kết quả →' : 'Câu tiếp theo →';
 }
 
+// ── NEXT QUESTION ────────────────────────────────────────────
 function nextQuestion() {
   curQ++;
-  if(curQ >= questions.length) {
-    showResult();
-  } else {
-    renderQuestion();
-    window.scrollTo(0,0);
-  }
+  if(curQ >= questions.length) showResult();
+  else { renderQuestion(); window.scrollTo(0,0); }
 }
 
+// ── SHOW RESULT ──────────────────────────────────────────────
 function showResult() {
-  document.getElementById('quiz-section').style.display = 'none';
-  document.getElementById('result-section').style.display = 'block';
+  document.getElementById('quiz-sec').style.display = 'none';
+  document.getElementById('result-sec').style.display = 'block';
 
-  const total = sectionScores.reduce((a,b)=>a+b,0);
-  const pass = total === 45;
+  var total = secScores.reduce(function(a,b){return a+b;}, 0);
+  var pass = total === questions.length;
 
-  document.getElementById('result-emoji').textContent = pass ? '🎉' : '😔';
-  document.getElementById('result-score').textContent = total;
-  document.getElementById('result-score').className = 'result-score ' + (pass ? 'pass' : 'fail');
-  document.getElementById('result-msg').textContent = pass
+  document.getElementById('res-emoji').textContent = pass ? '🎉' : '😔';
+  document.getElementById('res-score').textContent = total;
+  document.getElementById('res-score').className = 'res-score ' + (pass ? 'pass' : 'fail');
+  document.getElementById('res-msg').textContent = pass
     ? 'Chúc mừng, bạn đã làm đúng 45/45 câu hỏi và vượt qua bài test!'
-    : `Rất tiếc, bạn đã làm đúng ${total}/45 câu, hãy làm lại bài test để đạt 45/45 câu hỏi nhé!`;
+    : 'Rất tiếc, bạn đã làm đúng ' + total + '/45 câu, hãy làm lại bài test để đạt 45/45 câu hỏi nhé!';
 
-  [0,1,2].forEach(i => {
-    const el = document.getElementById('bd-'+(i+1));
-    const s = sectionScores[i];
-    el.textContent = s + '/15';
-    el.className = 'bd-score ' + (s === 15 ? 'pass' : 'fail');
-  });
+  // Breakdown per section
+  var secTotals = [0,0,0];
+  questions.forEach(function(q){ if(q.secIdx<3) secTotals[q.secIdx]++; });
+  for(var i=0;i<3;i++){
+    var el = document.getElementById('bd-'+i);
+    if(!el) continue;
+    var s = secScores[i]||0, t = secTotals[i]||15;
+    el.textContent = s + '/' + t;
+    el.className = 'bd-s ' + (s===t ? 'pass' : 'fail');
+  }
 
   window.scrollTo(0,0);
 
-  // Save to Google Sheets
+  // Save
   try {
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxMvWEIXeeYGJHzJe3NCf8W1LKY-W-ydba-EzvN02qrmCZDH8uxCw8VfODPBTvmFOuyXw/exec";
-    const payload = encodeURIComponent(JSON.stringify({
-      staffName, storeName,
-      modules: "Tiêu chuẩn dịch vụ, Tiêu chuẩn sản phẩm, Tình huống & xử lý",
-      level: "all", total: 45, correct: total,
-      breakdown: {
-        product: sectionScores[0]+'/15',
-        consult: sectionScores[1]+'/15',
-        service: sectionScores[2]+'/15',
-        situation: ''
-      }
+    var payload = encodeURIComponent(JSON.stringify({
+      staffName:staffName, storeName:storeName,
+      modules:"Tiêu chuẩn dịch vụ, Tiêu chuẩn sản phẩm, Tình huống & xử lý",
+      level:"all", total:questions.length, correct:total,
+      breakdown:{p1:(secScores[0]||0)+'/15', p2:(secScores[1]||0)+'/15', p3:(secScores[2]||0)+'/15'}
     }));
     fetch(SCRIPT_URL + '?action=saveResult&data=' + payload);
-  } catch(e) {}
+  } catch(e){}
 }
 
+// ── COPY RESULT ──────────────────────────────────────────────
 function copyResult() {
-  const total = sectionScores.reduce((a,b)=>a+b,0);
-  const date = new Date().toLocaleDateString('vi-VN');
-  let txt = `📋 KẾT QUẢ BÀI TEST — THE CAKE LAB\n`;
-  txt += `👤 ${staffName} | ${storeName}\n📅 ${date}\n`;
-  txt += `🎯 Tổng: ${total}/45 câu\n\n`;
-  txt += `• Tiêu chuẩn dịch vụ: ${sectionScores[0]}/15\n`;
-  txt += `• Tiêu chuẩn sản phẩm: ${sectionScores[1]}/15\n`;
-  txt += `• Tình huống & xử lý: ${sectionScores[2]}/15\n`;
-  txt += total === 45 ? '\n✅ ĐẠT — Vượt qua bài test!' : `\n❌ CHƯA ĐẠT — Cần làm lại`;
-  navigator.clipboard?.writeText(txt);
-  const btn = event.currentTarget;
-  const orig = btn.innerHTML;
+  var total = secScores.reduce(function(a,b){return a+b;},0);
+  var date = new Date().toLocaleDateString('vi-VN');
+  var txt = '📋 KẾT QUẢ BÀI TEST — THE CAKE LAB\n';
+  txt += '👤 ' + staffName + ' | ' + storeName + '\n📅 ' + date + '\n';
+  txt += '🎯 Tổng: ' + total + '/45 câu\n\n';
+  txt += '• Tiêu chuẩn dịch vụ: ' + (secScores[0]||0) + '/15\n';
+  txt += '• Tiêu chuẩn sản phẩm: ' + (secScores[1]||0) + '/15\n';
+  txt += '• Tình huống & xử lý: ' + (secScores[2]||0) + '/15\n';
+  txt += total===45 ? '\n✅ ĐẠT — Vượt qua bài test!' : '\n❌ CHƯA ĐẠT — Cần làm lại';
+  if(navigator.clipboard) navigator.clipboard.writeText(txt);
+  var btn = event.currentTarget;
+  var orig = btn.innerHTML;
   btn.innerHTML = '✓ Đã sao chép';
-  setTimeout(()=>btn.innerHTML=orig, 2000);
+  setTimeout(function(){ btn.innerHTML = orig; }, 2000);
 }
 
 function retryTest() {
-  document.getElementById('result-section').style.display = 'none';
-  document.getElementById('staff-section').style.display = 'block';
+  document.getElementById('result-sec').style.display = 'none';
+  document.getElementById('staff-sec').style.display = 'block';
   document.getElementById('staff-name').value = '';
   document.getElementById('store-sel').value = '';
 }
